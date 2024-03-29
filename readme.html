@@ -376,11 +376,11 @@ Jacquin <span class="math inline">\(\textit{et al.}\)</span> (2014) and
 Lafarge <span class="math inline">\(\textit{et al.}\)</span> (2017).
 Particularly, the former study advocates the utilization of
 identity-by-state (IBS) of haplotypes for such analyses. The software
-evaluates the following models and hypotheses for each window : <span class="math display">\[\\
+evaluates the following models and hypotheses for each window : <span class="math display">\[
 \left\{
   \begin{array}{ll}
-    Y = X\beta + Z_hh+ Zu + \varepsilon \hspace{0.2cm} (H1) \\
-    Y = X\beta + Zu + \varepsilon \hspace{0.2cm} (H0)
+    Y = X\beta + Z_hh+ Z_uu + \varepsilon \hspace{0.2cm} (H1) \\
+    Y = X\beta + Z_uu + \varepsilon \hspace{0.2cm} (H0)
   \end{array}
 \right.\]</span> where :</p>
 <ul>
@@ -391,22 +391,27 @@ analyzed trait.</li>
 fixed effects.</li>
 <li><span class="math inline">\(h\)</span> represents the vector of
 random effects of haplotypes following a multivariate normal
-distribution, <span class="math inline">\(i.e. h \sim
+distribution, i.e. <span class="math inline">\(h \sim
 \mathcal{N}_{n_h}(0,H_{\sigma^2_{h}})\)</span>, where <span class="math inline">\(H\)</span> is the covariance matrix describing the
 identity-by-state (IBS) status between haplotypes.</li>
 <li><span class="math inline">\(u\)</span> denotes the vector of random
-polygenic effects following a multivariate normal distribution, <span class="math inline">\(i.e. u \sim
+polygenic effects following a multivariate normal distribution,
+i.e. <span class="math inline">\(u \sim
 \mathcal{N}_{n}(0,K_{\sigma^2_{K}})\)</span>, where <span class="math inline">\(K\)</span> is the genomic covariance matrix also
 known as the Gram matrix. <span class="math inline">\(K\)</span> can be
 constructed using either the VanRaden (2008) method which represents a
 linear additive kernel, or a Gaussian kernel which is a non-linear
 universal approximator capable of modeling epistatic effects (Jacquin
 <span class="math inline">\(\textit{et al.}\)</span>, 2016).</li>
-<li><span class="math inline">\(X\)</span>, <span class="math inline">\(Z_h\)</span>, and <span class="math inline">\(Z\)</span> represent the design matrices that
+<li><span class="math inline">\(X\)</span>, <span class="math inline">\(Z_h\)</span>, and <span class="math inline">\(Z_u\)</span> represent the design matrices that
 relate fixed and random effects to the measured phenotypes.</li>
 <li><span class="math inline">\(\varepsilon\)</span> denotes the vector
 of residuals.</li>
-</ul></li>
+</ul>
+<p>The distribution of the restricted likelihood ratio test (RLRT)
+associated to these models is not known but it can be approximated by
+<span class="math inline">\(\frac{1}{2}(\chi^2_1 + \chi^2_2)\)</span>
+according to Self &amp; Liang (1987)</p></li>
 </ul>
 </div>
 <div id="remarks" class="section level3">

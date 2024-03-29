@@ -9,21 +9,23 @@
 * The KHAMMIX software is designed to conduct a genome-wide scan for identifying quantitative trait loci (QTLs) and mapping them, utilizing a sliding window approach with $L > 1$ SNP markers along phased chromosomes. Consequently, each window encompasses $n_h$ haplotypes, where $1< n_h \leq 2^L$, under the assumption of no monomorphic SNP markers. The central position of the sliding window is considered as the potential location harboring the putative QTL during the genome scan.  
 
 * At the central position of the sliding window, KHAMMIX evaluates and tests various mixed models and hypotheses, inspired by the works of Jacquin $\textit{et al.}$ (2014) and Lafarge $\textit{et al.}$ (2017). Particularly, the former study advocates the utilization of identity-by-state (IBS) of haplotypes for such analyses.  The software evaluates the following models and hypotheses for each window :
-$$\\
+$$
 \left\{
     \begin{array}{ll}
-      Y = X\beta + Z_hh+ Zu + \varepsilon \hspace{0.2cm} (H1) \\
-      Y = X\beta + Zu + \varepsilon \hspace{0.2cm} (H0)
+      Y = X\beta + Z_hh+ Z_uu + \varepsilon \hspace{0.2cm} (H1) \\
+      Y = X\beta + Z_uu + \varepsilon \hspace{0.2cm} (H0)
     \end{array}
 \right.$$
 where :
   * $Y$ represents the vector of $n$ measured phenotypes for the analyzed trait.
   * $\beta$ denotes the vector of fixed effects.
-  * $h$ represents the vector of random effects of haplotypes following a multivariate normal distribution, $i.e. h \sim \mathcal{N}_{n_h}(0,H_{\sigma^2_{h}})$, where $H$ is the covariance matrix describing the identity-by-state (IBS) status between haplotypes.
-  * $u$ denotes the vector of random polygenic effects following a multivariate normal distribution, $i.e. u \sim \mathcal{N}_{n}(0,K_{\sigma^2_{K}})$, where $K$ is the genomic covariance matrix also known as the Gram matrix. $K$ can be constructed using either the VanRaden (2008) method which represents a linear additive kernel, or a Gaussian kernel which is a non-linear universal approximator capable of modeling epistatic effects (Jacquin $\textit{et al.}$, 2016).
-  * $X$, $Z_h$, and $Z$ represent the design matrices that relate fixed and random effects to the measured phenotypes.
+  * $h$ represents the vector of random effects of haplotypes following a multivariate normal distribution, i.e. $h \sim \mathcal{N}_{n_h}(0,H_{\sigma^2_{h}})$, where $H$ is the covariance matrix describing the identity-by-state (IBS) status between haplotypes.
+  * $u$ denotes the vector of random polygenic effects following a multivariate normal distribution, i.e. $u \sim \mathcal{N}_{n}(0,K_{\sigma^2_{K}})$, where $K$ is the genomic covariance matrix also known as the Gram matrix. $K$ can be constructed using either the VanRaden (2008) method which represents a linear additive kernel, or a Gaussian kernel which is a non-linear universal approximator capable of modeling epistatic effects (Jacquin $\textit{et al.}$, 2016).
+  * $X$, $Z_h$, and $Z_u$ represent the design matrices that relate fixed and random effects to the measured phenotypes.
   * $\varepsilon$ denotes the vector of residuals.
-  
+
+  The distribution of the restricted likelihood ratio test (RLRT) associated to these models is not known but it can be approximated by $\frac{1}{2}(\chi^2_1 + \chi^2_2)$       according to Self & Liang (1987)
+
 ### 🔍 Remarks 
 
 * The KHAMMIX software can only operate in a Unix/Linux environment, provided that R and its associated libraries are installed beforehand
