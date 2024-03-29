@@ -1,3 +1,4 @@
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 [<img src="img/khammix.png"/>]()
 
 # Kernelized quantitative trait HAplotype-based Mapping using MIXed models (KHAMMIX) 
@@ -9,14 +10,17 @@
 * The KHAMMIX software is designed to conduct a genome-wide scan for identifying quantitative trait loci (QTLs) and mapping them, utilizing a sliding window approach with $L > 1$ SNP markers along phased chromosomes. Consequently, each window encompasses $n_h$ haplotypes, where $1< n_h \leq 2^L$, under the assumption of no monomorphic SNP markers. The central position of the sliding window is considered as the potential location harboring the putative QTL during the genome scan.  
 
 * At the central position of the sliding window, KHAMMIX evaluates and tests various mixed models and hypotheses, inspired by the works of Jacquin $\textit{et al.}$ (2014) and Lafarge $\textit{et al.}$ (2017). Particularly, the former study advocates the utilization of identity-by-state (IBS) of haplotypes for such analyses.  The software evaluates the following models and hypotheses for each window :
-$$Y = X\beta + Z_hh+ Z_uu + \varepsilon \ (H_1)$$ 
-$$versus$$
-$$Y = X\beta + Z_uu + \varepsilon \ (H_0)$$
+$$\left\{
+    \begin{array}{ll}
+      Y = X\beta + Z_hh+ Z_uu + \varepsilon \hspace{0.2cm} (H1) \\
+      Y = X\beta + Z_uu + \varepsilon \hspace{0.2cm} (H0)
+    \end{array}
+\right.$$
 where :
   * $Y$ represents the vector of $n$ measured phenotypes for the analyzed trait.
   * $\beta$ denotes the vector of fixed effects.
-  * $h$ represents the vector of random effects of haplotypes following a multivariate normal distribution, i.e. $h \sim N_{n_h}(0,H_{\sigma^2_{h}}) $, where $H$ is the covariance matrix describing the identity-by-state (IBS) status between haplotypes.
-  * $u$ denotes the vector of random polygenic effects following a multivariate normal distribution, i.e. $u \sim N_{n}(0,K_{\sigma^2_{K}})$, where $K$ is the genomic covariance matrix also known as the Gram matrix. $K$ can be constructed using either the VanRaden (2008) method which represents a linear additive kernel, or a Gaussian kernel which is a non-linear universal approximator capable of modeling epistatic effects (Jacquin $\textit{et al.}$, 2016).
+  * $h$ represents the vector of random effects of haplotypes following a multivariate normal distribution, i.e. $h \sim \mathcal{N}_{n_h}(0,H_{\sigma^2_{h}})$, where $H$ is the covariance matrix describing the identity-by-state (IBS) status between haplotypes.
+  * $u$ denotes the vector of random polygenic effects following a multivariate normal distribution, i.e. $u \sim \mathcal{N}_{n}(0,K_{\sigma^2_{K}})$, where $K$ is the genomic covariance matrix also known as the Gram matrix. $K$ can be constructed using either the VanRaden (2008) method which represents a linear additive kernel, or a Gaussian kernel which is a non-linear universal approximator capable of modeling epistatic effects (Jacquin $\textit{et al.}$, 2016).
   * $X$, $Z_h$, and $Z_u$ represent the design matrices that relate fixed and random effects to the measured phenotypes.
   * $\varepsilon$ denotes the vector of residuals.
 
@@ -68,5 +72,3 @@ detected a large set of genes involvedin adaptation to thermal and other stresse
 * Jacquin et al. (2016). A unified and comprehensible view of parametric and kernel methods for genomic prediction with application to rice
 
 * VanRaden, P.M. (2008) Efficient Methods to Compute Genomic Predictions. Journal of Dairy Science, 91:4414-4423 
-
-* Self S G and Liang K Y. Asymptotic properties of maximum likelihood estimators and likelihood ratio tests under nonstandard conditions. J Amer Statist Assoc, 82 :605–610, 1987.

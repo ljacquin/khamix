@@ -376,13 +376,9 @@ Jacquin <span class="math inline">\(\textit{et al.}\)</span> (2014) and
 Lafarge <span class="math inline">\(\textit{et al.}\)</span> (2017).
 Particularly, the former study advocates the utilization of
 identity-by-state (IBS) of haplotypes for such analyses. The software
-evaluates the following models and hypotheses for each window : <span class="math display">\[
-\left\{
-  \begin{array}{ll}
-    Y = X\beta + Z_hh+ Z_uu + \varepsilon \hspace{0.2cm} (H1) \\
-    Y = X\beta + Z_uu + \varepsilon \hspace{0.2cm} (H0)
-  \end{array}
-\right.\]</span> where :</p>
+evaluates the following models and hypotheses for each window : <span class="math display">\[Y = X\beta + Z_hh+ Z_uu + \varepsilon \
+(H_1)\]</span> <span class="math display">\[versus\]</span> <span class="math display">\[Y = X\beta + Z_uu + \varepsilon \ (H_0)\]</span>
+where :</p>
 <ul>
 <li><span class="math inline">\(Y\)</span> represents the vector of
 <span class="math inline">\(n\)</span> measured phenotypes for the
@@ -391,13 +387,12 @@ analyzed trait.</li>
 fixed effects.</li>
 <li><span class="math inline">\(h\)</span> represents the vector of
 random effects of haplotypes following a multivariate normal
-distribution, i.e. <span class="math inline">\(h \sim
-\mathcal{N}_{n_h}(0,H_{\sigma^2_{h}})\)</span>, where <span class="math inline">\(H\)</span> is the covariance matrix describing the
+distribution, i.e. $h N_{n_h}(0,H_{^2_{h}}) $, where <span class="math inline">\(H\)</span> is the covariance matrix describing the
 identity-by-state (IBS) status between haplotypes.</li>
 <li><span class="math inline">\(u\)</span> denotes the vector of random
 polygenic effects following a multivariate normal distribution,
 i.e. <span class="math inline">\(u \sim
-\mathcal{N}_{n}(0,K_{\sigma^2_{K}})\)</span>, where <span class="math inline">\(K\)</span> is the genomic covariance matrix also
+N_{n}(0,K_{\sigma^2_{K}})\)</span>, where <span class="math inline">\(K\)</span> is the genomic covariance matrix also
 known as the Gram matrix. <span class="math inline">\(K\)</span> can be
 constructed using either the VanRaden (2008) method which represents a
 linear additive kernel, or a Gaussian kernel which is a non-linear
@@ -496,6 +491,9 @@ parametric and kernel methods for genomic prediction with application to
 rice</p></li>
 <li><p>VanRaden, P.M. (2008) Efficient Methods to Compute Genomic
 Predictions. Journal of Dairy Science, 91:4414-4423</p></li>
+<li><p>Self S G and Liang K Y. Asymptotic properties of maximum
+likelihood estimators and likelihood ratio tests under nonstandard
+conditions. J Amer Statist Assoc, 82 :605–610, 1987.</p></li>
 </ul>
 </div>
 </div>
