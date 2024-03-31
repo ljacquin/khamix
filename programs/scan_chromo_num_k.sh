@@ -1,4 +1,4 @@
- # extract haplotype data for analyzed chromosome
+# extract haplotype data for analyzed chromosome
 R -q --vanilla<get_data_chromo_num_k.R
 
 chromo_num_k=$(cat "chromo_num_k")
@@ -21,4 +21,4 @@ do
 	cat rlrt_value>>vect_rlrt_value_chromo_num_$chromo_num_k
 	cat nb_col_h_matrix>>vect_nb_hap_window_chromo_num_$chromo_num_k
 done 
- # end of genome scan for chromosome $chromo_num_k
+# end of genome scan for chromosome $chromo_num_k
