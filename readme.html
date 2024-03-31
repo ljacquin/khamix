@@ -366,7 +366,11 @@ genome-wide scan for detecting quantitative trait loci (QTLs) and
 mapping them, utilizing a sliding window approach with <span class="math inline">\(L &gt; 1\)</span> SNP markers along phased
 chromosomes. Consequently, each window encompasses <span class="math inline">\(n_h\)</span> haplotypes where <span class="math inline">\(n_h \leq 2^L\)</span>. The central position of the
 sliding window is considered as the potential location harboring the
-putative QTL during the genome scan.</p></li>
+putative QTL during the genome scan. As demonstrated in Jacquin <span class="math inline">\(\textit{et al.}\)</span> (2014), haplotypes
+harboring a QTL better capture the linkage disequilibrium (LD) with the
+latter than a neighbouring SNP, regardless of the degree of allelism at
+the QTL. This enhanced LD capture results in better detection and higher
+mapping accuracy.</p></li>
 <li><p>At the central position of the sliding window,
 <code>KHAMIX</code> evaluates and tests various mixed models and
 hypotheses, inspired by the works of Jacquin <span class="math inline">\(\textit{et al.}\)</span> (2014) and Lafarge <span class="math inline">\(\textit{et al.}\)</span> (2017). Particularly, the
@@ -412,22 +416,22 @@ according to Self &amp; Liang (1987)</p></li>
 <ul>
 <li><p>The KHAMIX software can only operate in a <code>Unix/Linux</code>
 environment, provided that <code>R</code> and its associated libraries
-are installed beforehand</p></li>
+are installed beforehand.</p></li>
 <li><p>Parallelization of computations launched by this software can
 only be achieved through a computing cluster and not on a personal
-computer</p></li>
+computer.</p></li>
 <li><p>Sequential computation can also be performed on a personal
 computer, in a <code>Unix/Linux</code> environment, provided that
 <code>R</code> and its associated libraries are installed, but it is not
-recommended due to the long computation time</p></li>
+recommended due to the long computation time.</p></li>
 <li><p>Sequential computation can be very time-consuming (one to several
 days) and is therefore not recommended if a computing cluster is
-available</p></li>
+available.</p></li>
 <li><p>On a computing cluster, the computation time for a complete
-genome scan (i.e., scanning all chromosomes by parallel computation) can
+genome scan (i.e. scanning all chromosomes by parallel computation) can
 vary from a few hours (2 to 3 hours on average) to a maximum of one day
 depending on the cluster’s usage by other users (number of
-jobs/priorities, etc.)</p></li>
+jobs/priorities, etc.).</p></li>
 </ul>
 </div>
 <div id="instructions" class="section level3">
@@ -446,8 +450,8 @@ or</li>
 </p></li>
 </ul></li>
 <li><p>Given that <code>R ≥ 4.1.2</code> is already installed, use the
-following command to install <code>khamix R</code> required libraries
-:</p>
+following command to install <code>khamix</code> required <code>R</code>
+libraries :</p>
 <ul>
 <li><code>R -q --vanilla&lt;requirements.R</code>
 <p>
@@ -481,18 +485,22 @@ analysis, as it will permanently erase all results.</p></li>
 the file. At the beginning of the script, modify the following 6
 parameters according to the desired analysis :</p>
 <ul>
-<li><code>trait_name</code> corresponds to the trait under analysis</li>
+<li><code>trait_name</code> corresponds to the trait under
+analysis.</li>
 <li><code>nb_snp_hap</code> denotes the size of the sliding window
-(i.e., haplotypes) in terms of the number of markers</li>
+(i.e. size of haplotypes) in terms of the number of markers. According
+to several studies, it is generally advised to use
+<code>nb_snp_hap = 6</code> for a marker density of at least 20K in
+order to achieve optimal mapping accuracy (Lafarge <span class="math inline">\(\textit{et al.}\)</span>, 2017; Jacquin <span class="math inline">\(\textit{et al.}\)</span>, 2014; Calus <span class="math inline">\(\textit{et al.}\)</span>, 2009; Grapes <span class="math inline">\(\textit{et al.}\)</span>, 2005).</li>
 <li><code>nb_chromosomes</code> denotes the total number of chromosomes
-for the analyzed data set</li>
+for the analyzed data set.</li>
 <li><code>kernel_index</code> denotes the type of kernel (i.e. VanRaden
-or Gaussian) used to build the genomic covariance matrix <span class="math inline">\(K\)</span></li>
+or Gaussian) used to build the genomic covariance matrix <span class="math inline">\(K\)</span>.</li>
 <li><code>signif_level</code> corresponds to the significance level for
-the restricted likelihood ratio test (RLRT)</li>
+the restricted likelihood ratio test (RLRT).</li>
 <li><code>local_or_cluster</code> corresponds to the type of
 computation, i.e. local computation or parallelized computation on a
-cluster
+cluster.
 <p>
 </p></li>
 </ul></li>
@@ -520,15 +528,25 @@ from the provided data set.</p></li>
 <li><p>Lafarge T., Bueno C., Frouin J., Jacquin L., Courtois B., Ahmadi
 N. (2017). Genome-wide association analysis for heat tolerance at
 flowering detected a large set of genes involvedin adaptation to thermal
-and other stresses</p></li>
-<li><p>Jacquin et al. (2014). Using haplotypes for the prediction of
-allelic identity to fine- map QTL : characterization and
-properties</p></li>
-<li><p>Jacquin et al. (2016). A unified and comprehensible view of
-parametric and kernel methods for genomic prediction with application to
-rice</p></li>
+and other stresses.</p></li>
+<li><p>Jacquin, L., Elsen, JM. &amp; Gilbert, H. Using haplotypes for
+the prediction of allelic identity to fine-map QTL: characterization and
+properties. Genet Sel Evol 46, 45 (2014). <a href="https://doi.org/10.1186/1297-9686-46-45" class="uri">https://doi.org/10.1186/1297-9686-46-45</a></p></li>
+<li><p>Jacquin L, Cao T-V and Ahmadi N (2016) A Unified and
+Comprehensible View of Parametric and Kernel Methods for Genomic
+Prediction with Application to Rice. Front. Genet. 7:145. doi:
+10.3389/fgene.2016.00145</p></li>
 <li><p>VanRaden, P.M. (2008) Efficient Methods to Compute Genomic
-Predictions. Journal of Dairy Science, 91:4414-4423</p></li>
+Predictions. Journal of Dairy Science, 91:4414-4423.</p></li>
+<li><p>Calus MPL, Meuwissen THE, Windig JJ, Knol EF, Schrooten C,
+Vereijken ALJ, Veerkamp RF: Effects of the number of markers per
+haplotype and clustering of haplotypes on the accuracy of QTL mapping
+and prediction of genomic breeding values. Genet Sel Evol. 2009, 41:
+11-10.1186/1297-9686-41-11.</p></li>
+<li><p>Grapes L, Firat MZ, Dekkers JCM, Rothschild MF, Fernando RL:
+Optimal haplotype structure for linkage disequilibrium-based fine
+mapping of quantitative trait loci using identity by descent. Genetics.
+2005, 172: 1955-1965. 10.1534/genetics.105.048686.</p></li>
 <li><p>Self S G and Liang K Y. Asymptotic properties of maximum
 likelihood estimators and likelihood ratio tests under nonstandard
 conditions. J Amer Statist Assoc, 82 :605–610, 1987.</p></li>
