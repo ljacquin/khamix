@@ -1,6 +1,6 @@
 [<img src="img/khamix.png"/>]()
 
-# Kernelized HAplotype-based MIXed models association mapping (KHAMIX) 
+# Kernelized HAplotype-based MIXed model association mapping (KHAMIX) 
 
 ## Objective, remarks and instructions :
 
@@ -37,11 +37,28 @@ where :
 
 ### 💻 Instructions
 
-* Copy the ```khamix``` folder to the current user's directory on a computing cluster or personal computer.
+* Download the ```khamix``` repository in the current user's directory on a computing cluster or personal computer using one of the following commands :
 
-* Within the ```khamix``` folder, execute the command ```chmod u+rwx make_scripts_programs_executable.sh```, followed by ```./make_scripts_programs_executable.sh```.
+  *  ```git clone git@github.com:ljacquin/khamix.git``` 
+  <p> </p>
+    or
+  <p> </p>
+  *  ```git clone https://github.com/ljacquin/khamix.git``` 
+  <p> </p>
+  
+* Given that ```R ≥ 4.1.2``` is already installed, use the following command to install ```khamix R``` required libraries : 
 
-* Replace the following 5 files: ```genotypes.txt```, ```incidence_fixed_effects.txt```, ```phased_genotypes.txt```, ```phenotypes.txt```, ```physical_map.txt``` in the ```data_parameters``` folder.
+  <p> </p>
+  * ```R -q --vanilla<requirements.R ```
+  <p> </p>
+
+* Within the ```khamix``` folder, execute the following commands to make scripts and programs executable :
+
+  *  ```chmod u+rwx make_scripts_programs_executable.sh```
+  *  ```./make_scripts_programs_executable.sh```
+  <p> </p>
+
+* In the ```data_parameters``` folder, replace the following 5 files which serve as examples : ```genotypes.txt```, ```incidence_fixed_effects.txt```, ```phased_genotypes.txt```, ```phenotypes.txt```, ```physical_map.txt``` .
 
     ⚠️ Ensure that the new data files replacing the old ones adhere to the same format.
 
@@ -65,7 +82,7 @@ where :
 
 * Upon completion of the jobs, execute the command ```./get_results_scans.sh``` to retrieve all results, including RLRT graphs per chromosome, significant regions/windows with corresponding haplotypes per chromosome, etc.
 
-* Final note: The ```khamix``` folder can be duplicated multiple times, with each copy renamed, to analyze multiple traits in parallel. For instance, folders like ```khamix_LLGTH```, ```khamix_NBL```, ```khamix_TIL```, etc., can be created for example from the provided data set.
+* Final note: The ```khamix``` folder can be duplicated multiple times, with each copy renamed, to analyze multiple traits in parallel. For example, folders like ```khamix_LLGTH```, ```khamix_NBL```, ```khamix_TIL```, etc., can be created from the provided data set.
 
 ## References :
 
