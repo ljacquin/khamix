@@ -15,7 +15,7 @@ $$Y = X\beta + Z_uu + \varepsilon \ (H_0)$$
 where :
   * $Y$ represents the vector of $n$ measured phenotypes for the analyzed trait.
   * $\beta$ denotes the vector of fixed effects.
-  * $h$ represents the vector of random effects of haplotypes following a multivariate normal distribution, i.e. $h \sim N_{n_h}(0,H_{\sigma^2_{h}}) $, where $H$ is the covariance matrix describing the identity-by-state (IBS) status between haplotypes.
+  * $h$ represents the vector of random effects of haplotypes following a multivariate normal distribution, i.e. $h \sim N_{n_h}(0,H_{\sigma^2_{h}}) $, where $H=I_{n_h}$ is the covariance matrix describing the identity-by-state (IBS) status between haplotypes.
   * $u$ denotes the vector of random polygenic effects following a multivariate normal distribution, i.e. $u \sim N_{n}(0,K_{\sigma^2_{K}})$, where $K$ is the genomic covariance matrix also known as the Gram matrix. $K$ can be constructed using either the VanRaden (2008) method which represents a linear additive kernel, or a Gaussian kernel which is a non-linear universal approximator capable of modeling epistatic effects (Jacquin $\textit{et al.}$, 2016).
   * $X$, $Z_h$, and $Z_u$ represent the design matrices that relate fixed and random effects to the measured phenotypes.
   * $\varepsilon$ denotes the vector of residuals.
