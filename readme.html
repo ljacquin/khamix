@@ -362,7 +362,7 @@ display: none;
 <h3>🎯 Objective</h3>
 <ul>
 <li><p>The <code>KHAMIX</code> software is designed to conduct a
-genome-wide scan for identifying quantitative trait loci (QTLs) and
+genome-wide scan for detecting quantitative trait loci (QTLs) and
 mapping them, utilizing a sliding window approach with <span class="math inline">\(L &gt; 1\)</span> SNP markers along phased
 chromosomes. Consequently, each window encompasses <span class="math inline">\(n_h\)</span> haplotypes where <span class="math inline">\(n_h \leq 2^L\)</span>. The central position of the
 sliding window is considered as the potential location harboring the
@@ -383,8 +383,8 @@ analyzed trait.</li>
 fixed effects.</li>
 <li><span class="math inline">\(h\)</span> represents the vector of
 random effects of haplotypes following a multivariate normal
-distribution, i.e. $h N_{n_h}(0,H_{^2_{h}}) $, where <span class="math inline">\(H\)</span> is the covariance matrix describing the
-identity-by-state (IBS) status between haplotypes.</li>
+distribution, i.e. $h N_{n_h}(0,H_{^2_{h}}) $, where <span class="math inline">\(H=I_{n_h}\)</span> is the covariance matrix
+describing the identity-by-state (IBS) status between haplotypes.</li>
 <li><span class="math inline">\(u\)</span> denotes the vector of random
 polygenic effects following a multivariate normal distribution,
 i.e. <span class="math inline">\(u \sim
