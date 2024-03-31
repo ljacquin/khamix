@@ -5,6 +5,7 @@ library(data.table)
 #--------------------------#
 nb_chromosomes <- scan("nb_chromosomes")
 nb_snp_hap <- scan("nb_snp_hap")
+alpha <- as.numeric(scan("signif_level"))
 
 physical_map_matrix <- read.table("physical_map.txt", header = TRUE)
 repeated_chrom_num <- physical_map_matrix[, match(
@@ -26,7 +27,6 @@ phased_genotype_matrix <- phased_genotype_matrix[, -match(
 phased_genotype_matrix <- t(phased_genotype_matrix)
 
 # set rlrt threshold
-alpha <- 0.01
 set.seed(123)
 simulated_rlrt_distribution <- 0.5 * (sort(rchisq(1e3, df = 1, ncp = 0))
 + sort(rchisq(1e3, df = 2, ncp = 0)))
@@ -52,13 +52,6 @@ if (nb_snp_hap == 1) {
     print(index_signif_rlrt_value)
 
     if (length(index_signif_rlrt_value) >= 1) {
-      write.table(index_signif_rlrt_value,
-        file = paste("index_significant_snps_chromo_num_", chromo_num_k,
-          sep = ""
-        ),
-        row.names = FALSE, col.names = FALSE, quote = FALSE, sep = " "
-      )
-
       for (m in index_signif_rlrt_value)
       {
         write.table(phased_genotypes_chromo_num_k[, m],
@@ -92,13 +85,6 @@ if (nb_snp_hap == 1) {
     print(index_signif_rlrt_value)
 
     if (length(index_signif_rlrt_value) >= 1) {
-      write.table(index_signif_rlrt_value,
-        file = paste("index_significant_windows_chromo_num_", chromo_num_k,
-          sep = ""
-        ),
-        row.names = FALSE, col.names = FALSE, quote = FALSE, sep = " "
-      )
-
       for (m in index_signif_rlrt_value)
       {
         write.table(phased_genotypes_chromo_num_k[, m:(m + (nb_snp_hap - 1))],

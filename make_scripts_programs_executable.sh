@@ -1,6 +1,5 @@
-
+# make scripts and programs executable
 echo
-
 chmod u+rwx module_load_R.sh
 chmod u+rwx clean_scans.sh
 chmod u+rwx khammix.sh
