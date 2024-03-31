@@ -39,17 +39,14 @@ where :
 
 * Download the ```khamix``` repository in the current user's directory on a computing cluster or personal computer using one of the following commands :
 
-  *  ```git clone git@github.com:ljacquin/khamix.git``` 
-  <p> </p>
+  *  ```git clone git@github.com:ljacquin/khamix.git``` <p> </p>
     or
-  <p> </p>
-  *  ```git clone https://github.com/ljacquin/khamix.git``` 
+  * ```git clone https://github.com/ljacquin/khamix.git``` 
   <p> </p>
   
 * Given that ```R ≥ 4.1.2``` is already installed, use the following command to install ```khamix R``` required libraries : 
 
-  <p> </p>
-  * ```R -q --vanilla<requirements.R ```
+  * ```R -q --vanilla<requirements.R```
   <p> </p>
 
 * Within the ```khamix``` folder, execute the following commands to make scripts and programs executable :
