@@ -1,1 +1,7 @@
+install.packages('Matrix', dependencies = TRUE)
+install.packages('matrixcalc', dependencies = TRUE)
+install.packages('data.table', dependencies = TRUE)
 install.packages('EMMREML', dependencies = TRUE)
+install.packages("BiocManager")
+BiocManager::install("impute")
+install.packages('snpReady', dependencies = TRUE)
