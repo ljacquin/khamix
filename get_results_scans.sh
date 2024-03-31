@@ -74,7 +74,6 @@ if [ "$kernel_index" -gt 1 ] ; then
 		    mv significant_snps_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
 		    mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
 		    mv kernelized_gwas_of_chromosome_$chromo_num_k*								results_chromo_num_$chromo_num_k
-		    mv vect_nb_hap_window_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
 		done
 
 		mkdir results_all_chromosomes                                              
@@ -111,7 +110,6 @@ if [ "$kernel_index" -gt 1 ] ; then
 		    mv significant_snps_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
 		    mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
 		    mv gwas_of_chromosome_$chromo_num_k*									results_chromo_num_$chromo_num_k
-		    mv vect_nb_hap_window_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
 		done
 
 		mkdir results_all_chromosomes                                              
