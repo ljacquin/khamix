@@ -1,7 +1,7 @@
 #!/bin/sh
-#============================================================#
-#  kernelized qtl-haplotype mapping by mixed model (khammix) #										
-#============================================================#
+#=======================================================================#
+#  kernelized haplotype-based mixed model association mapping (KHAMIX)  #										
+#=======================================================================#
 # source modules for R
 # source module_load_r.sh
 
