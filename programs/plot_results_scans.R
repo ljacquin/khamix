@@ -50,17 +50,29 @@ if (kernel_index == 1) {
 
       rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k, sep = ""))
 
-
       markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 3))
-
-      markers_in_Kb_rlrt_value_chromo_num_k[, 1] <- marker_id_chrom
-      markers_in_Kb_rlrt_value_chromo_num_k[, 2] <- position_kb_chrom_num
-      markers_in_Kb_rlrt_value_chromo_num_k[, 3] <- rlrt_value
+      colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
+        "MkID",
+        "Pos_in_Kb",
+        "Restricted_LRT_value"
+      )
+      markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
+      markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
+      markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
 
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste("markers_in_kb_with_rlrt_value_on_chromosome_", chromo_num_k, sep = ""),
-        row.names = FALSE, col.names = c("MkID", "Pos. in Kb", "Restricted LRT value"),
-        quote = FALSE, sep = "                 "
+        row.names = FALSE, quote = FALSE,
+        sep = " "
+      )
+
+      write.table(
+        markers_in_Kb_rlrt_value_chromo_num_k[
+          markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value >= rlrt_threshold,
+        ],
+        file = paste("markers_in_kb_with_significant_rlrt_value_on_chromosome_", chromo_num_k, sep = ""),
+        row.names = FALSE, quote = FALSE,
+        sep = " "
       )
 
       plot(position_kb_chrom_num, rlrt_value,
@@ -257,15 +269,34 @@ if (kernel_index == 1) {
       rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k, sep = ""))
 
       markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 3))
-
-      markers_in_Kb_rlrt_value_chromo_num_k[, 1] <- marker_id_chrom
-      markers_in_Kb_rlrt_value_chromo_num_k[, 2] <- position_kb_chrom_num
-      markers_in_Kb_rlrt_value_chromo_num_k[, 3] <- rlrt_value
+      colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
+        "MkID",
+        "Pos_in_Kb",
+        "Restricted_LRT_value"
+      )
+      markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
+      markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
+      markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
 
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
-        file = paste("markers_in_kb_with_rlrt_value_on_chromosome_", chromo_num_k, sep = ""),
-        row.names = FALSE, col.names = c("MkID", "Pos. in Kb", "Restricted LRT value"),
-        quote = FALSE, sep = "                 "
+        file = paste("markers_in_kb_with_rlrt_value_on_chromosome_",
+          chromo_num_k,
+          sep = ""
+        ),
+        row.names = FALSE, quote = FALSE,
+        sep = " "
+      )
+
+      write.table(
+        markers_in_Kb_rlrt_value_chromo_num_k[
+          markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value >= rlrt_threshold,
+        ],
+        file = paste("markers_in_kb_with_significant_rlrt_value_on_chromosome_",
+          chromo_num_k,
+          sep = ""
+        ),
+        row.names = FALSE, quote = FALSE,
+        sep = " "
       )
 
       plot(position_kb_chrom_num, rlrt_value,
