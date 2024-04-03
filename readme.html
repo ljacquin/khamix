@@ -474,9 +474,10 @@ commands to make scripts and programs executable :</p>
 <p>⚠️ Ensure that the new data files replacing the old ones adhere to
 the same format.</p>
 <p>⚠️ If the files <code>incidence_fixed_effects.txt</code> and
-<code>incidence_polygenic_effects.txt</code> are not replaced and not
-present in the <code>data_parameters</code> folder, then the fixed and
-polygenic design matrices will automatically default to <span class="math inline">\(X=1_n\)</span> and <span class="math inline">\(Z_u=I_n\)</span> respectively.</p></li>
+<code>incidence_polygenic_effects.txt</code> cannot be replaced prior to
+an analysis then they must be removed or deleted from the
+<code>data_parameters</code> folder. In this case, the fixed and
+polygenic design matrices will default to <span class="math inline">\(X=1_n\)</span> and <span class="math inline">\(Z_u=I_n\)</span> respectively.</p></li>
 <li><p>Prior to initiating an analysis, execute the command
 <code>./clean_scans.sh</code> within the <code>khamix</code> folder to
 clear any existing directories of the type

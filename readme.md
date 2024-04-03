@@ -60,7 +60,7 @@ where :
 
     ⚠️ Ensure that the new data files replacing the old ones adhere to the same format.
     
-    ⚠️ If the files ```incidence_fixed_effects.txt``` and ```incidence_polygenic_effects.txt``` are not replaced and not present in the ```data_parameters``` folder, then the fixed and polygenic design matrices will automatically default to $X=1_n$ and $Z_u=I_n$ respectively.
+    ⚠️ If the files ```incidence_fixed_effects.txt``` and ```incidence_polygenic_effects.txt``` cannot be replaced prior to an analysis then they must be removed or deleted from the ```data_parameters``` folder. In this case, the fixed and polygenic design matrices will default to $X=1_n$ and $Z_u=I_n$ respectively.
 
 * Prior to initiating an analysis, execute the command ```./clean_scans.sh``` within the ```khamix``` folder to clear any existing directories of the type ```genome_scan_chromo_num_*```.
 
