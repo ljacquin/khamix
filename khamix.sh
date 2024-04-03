@@ -33,18 +33,25 @@ mv signif_level		data_parameters/
 #2. compute estimates under null hypothesis (h0) #
 #------------------------------------------------#
 mkdir estimates_h0/
-cp data_parameters/trait_name			estimates_h0/
-cp data_parameters/phenotypes.txt		estimates_h0/
-cp data_parameters/incidence_fixed_effects.txt	estimates_h0/
-cp data_parameters/kernel_index			estimates_h0/
-cp data_parameters/genotypes.txt		estimates_h0/
-cp programs/get_data_trait_name.R		estimates_h0/
-cp programs/get_data_fixed_effects.R		estimates_h0/
-cp programs/compute_k_matrix.R			estimates_h0/
-cp programs/compute_estimates_h0.R		estimates_h0/
+cp data_parameters/trait_name				estimates_h0/
+cp data_parameters/phenotypes.txt			estimates_h0/
+if [ -f data_parameters/incidence_fixed_effects.txt ] ; then
+    echo
+    cp data_parameters/incidence_fixed_effects.txt	estimates_h0/
+fi
+if [ -f data_parameters/incidence_polygenic_effects.txt ] ; then
+    echo
+    cp data_parameters/incidence_polygenic_effects.txt	estimates_h0/
+fi
+cp data_parameters/kernel_index				estimates_h0/
+cp data_parameters/genotypes.txt			estimates_h0/
+cp programs/get_data_trait_name.R			estimates_h0/
+cp programs/get_data_incidence.R			estimates_h0/
+cp programs/compute_k_matrix.R				estimates_h0/
+cp programs/compute_estimates_h0.R			estimates_h0/
 cd estimates_h0/
 	R -q --vanilla<get_data_trait_name.R
-	R -q --vanilla<get_data_fixed_effects.R
+	R -q --vanilla<get_data_incidence.R
 	R -q --vanilla<compute_k_matrix.R	
 	R -q --vanilla<compute_estimates_h0.R	
 cd ../
@@ -73,6 +80,7 @@ do
 	# copy data and estimates for model under null hypothesis (h0) into directory for chromosome chromo_num_k
 	cp estimates_h0/phenotypes_trait_name		genome_scan_chromo_num_$chromo_num_k
 	cp estimates_h0/x_matrix			genome_scan_chromo_num_$chromo_num_k
+	cp estimates_h0/z_u_matrix			genome_scan_chromo_num_$chromo_num_k
 	cp estimates_h0/k_matrix			genome_scan_chromo_num_$chromo_num_k
 	cp estimates_h0/emmreml_h0			genome_scan_chromo_num_$chromo_num_k
 	
