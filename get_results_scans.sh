@@ -69,12 +69,12 @@ if [ "$kernel_index" -gt 1 ] ; then
 
 		for chromo_num_k in $(seq $nb_chromosomes -1 1)
 		do
-		    mkdir results_chromo_num_$chromo_num_k
-		    mv markers_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*						results_chromo_num_$chromo_num_k
-		    mv markers_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*					results_chromo_num_$chromo_num_k
-		    mv significant_snps_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
-		    mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
-		    mv kernelized_gwas_of_chromosome_$chromo_num_k*								results_chromo_num_$chromo_num_k
+			mkdir results_chromo_num_$chromo_num_k
+			mv markers_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*						results_chromo_num_$chromo_num_k
+			mv markers_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*				results_chromo_num_$chromo_num_k
+			mv significant_snps_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
+			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
+			mv kernelized_gwas_of_chromosome_$chromo_num_k*								results_chromo_num_$chromo_num_k
 		done
 
 		mkdir results_all_chromosomes                                              
@@ -106,12 +106,12 @@ if [ "$kernel_index" -gt 1 ] ; then
 
 		for chromo_num_k in $(seq $nb_chromosomes -1 1)
 		do
-		    mkdir results_chromo_num_$chromo_num_k
-		    mv markers_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*						results_chromo_num_$chromo_num_k
-    		    mv markers_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*					results_chromo_num_$chromo_num_k
-		    mv significant_snps_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
-		    mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
-		    mv gwas_of_chromosome_$chromo_num_k*									results_chromo_num_$chromo_num_k
+			mkdir results_chromo_num_$chromo_num_k
+			mv markers_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*						results_chromo_num_$chromo_num_k
+			mv markers_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*				results_chromo_num_$chromo_num_k
+			mv significant_snps_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
+			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
+			mv gwas_of_chromosome_$chromo_num_k*									results_chromo_num_$chromo_num_k
 		done
 
 		mkdir results_all_chromosomes                                              

@@ -9,4 +9,5 @@ rm data_parameters/nb_snp_hap
 rm data_parameters/nb_chromosomes 
 rm data_parameters/trait_name
 rm data_parameters/signif_level
+rm out_
 

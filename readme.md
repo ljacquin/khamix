@@ -55,9 +55,12 @@ where :
   *  ```./make_scripts_programs_executable.sh```
   <p> </p>
 
-* In the ```data_parameters``` folder, replace the following 5 files which serve as examples : ```genotypes.txt```, ```incidence_fixed_effects.txt```, ```phased_genotypes.txt```, ```phenotypes.txt```, ```physical_map.txt``` .
+* In the ```data_parameters``` folder, replace the following 6 files which serve as examples : ```genotypes.txt```, ```incidence_fixed_effects.txt```,
+ ```incidence_polygenic_effects.txt```, ```phased_genotypes.txt```, ```phenotypes.txt```, ```physical_map.txt``` .
 
     ⚠️ Ensure that the new data files replacing the old ones adhere to the same format.
+    
+    ⚠️ If the files ```incidence_fixed_effects.txt``` and ```incidence_polygenic_effects.txt``` are not replaced and not present in the ```data_parameters``` folder, then the fixed and polygenic design matrices will automatically default to $X=1_n$ and $Z_u=I_n$ respectively.
 
 * Prior to initiating an analysis, execute the command ```./clean_scans.sh``` within the ```khamix``` folder to clear any existing directories of the type ```genome_scan_chromo_num_*```.
 

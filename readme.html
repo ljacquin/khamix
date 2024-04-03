@@ -466,12 +466,17 @@ commands to make scripts and programs executable :</p>
 </p></li>
 </ul></li>
 <li><p>In the <code>data_parameters</code> folder, replace the following
-5 files which serve as examples : <code>genotypes.txt</code>,
+6 files which serve as examples : <code>genotypes.txt</code>,
 <code>incidence_fixed_effects.txt</code>,
+<code>incidence_polygenic_effects.txt</code>,
 <code>phased_genotypes.txt</code>, <code>phenotypes.txt</code>,
 <code>physical_map.txt</code> .</p>
 <p>⚠️ Ensure that the new data files replacing the old ones adhere to
-the same format.</p></li>
+the same format.</p>
+<p>⚠️ If the files <code>incidence_fixed_effects.txt</code> and
+<code>incidence_polygenic_effects.txt</code> are not replaced and not
+present in the <code>data_parameters</code> folder, then the fixed and
+polygenic design matrices will automatically default to <span class="math inline">\(X=1_n\)</span> and <span class="math inline">\(Z_u=I_n\)</span> respectively.</p></li>
 <li><p>Prior to initiating an analysis, execute the command
 <code>./clean_scans.sh</code> within the <code>khamix</code> folder to
 clear any existing directories of the type
