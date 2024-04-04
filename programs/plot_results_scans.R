@@ -30,6 +30,11 @@ simulated_rlrt_distribution <- 0.5 * (sort(rchisq(1e3, df = 1, ncp = 0))
 + sort(rchisq(1e3, df = 2, ncp = 0)))
 rlrt_threshold <- quantile(simulated_rlrt_distribution, 1 - alpha)
 
+# function to get p-values
+get_p_value <- function(distrib_, test_statistic_value_) {
+  p_val_ <- sum(distrib_ > test_statistic_value_) / length(distrib_)
+}
+
 #-------------------------------------------------------------#
 # reformat results for each chromosome for the analyzed trait #
 #-------------------------------------------------------------#
@@ -50,16 +55,20 @@ if (kernel_index == 1) {
 
       rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k, sep = ""))
 
-      markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 3))
+      markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 4))
       colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "MkID",
         "Pos_in_Kb",
-        "Restricted_LRT_value"
+        "Restricted_LRT_value",
+        "p_value"
       )
       markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
       markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
       markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
-
+      markers_in_Kb_rlrt_value_chromo_num_k$p_value <- sapply(
+        rlrt_value,
+        function(x) get_p_value(distrib_, x)
+      )
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste("markers_in_kb_with_rlrt_value_on_chromosome_", chromo_num_k, sep = ""),
         row.names = FALSE, quote = FALSE,
@@ -139,10 +148,10 @@ if (kernel_index == 1) {
       rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k, sep = ""))
       scanned_position_kb <- rep(0, length(rlrt_value))
 
-      flank_markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 6))
+      flank_markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 7))
       colnames(flank_markers_in_Kb_rlrt_value_chromo_num_k) <- col.names <- c(
         "left_flank_MkID_to_center", "Pos_in_Kb_left_flank_MkID", "right_flank_MkID_to_center",
-        "Pos_in_Kb_right_flank_MkID", "Restricted_LRT_value", "Window_starting_index"
+        "Pos_in_Kb_right_flank_MkID", "Restricted_LRT_value", "p_value", "Window_starting_index"
       )
 
       p <- 1
@@ -159,6 +168,11 @@ if (kernel_index == 1) {
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb_right_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + (k + 1)]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[p] <- rlrt_value[p]
+
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$p_value[p] <- get_p_value(
+          distrib_ = simulated_rlrt_distribution,
+          test_statistic_value_ = rlrt_value[p]
+        )
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Window_starting_index[p] <- p
 
@@ -268,15 +282,20 @@ if (kernel_index == 1) {
 
       rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k, sep = ""))
 
-      markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 3))
+      markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 4))
       colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "MkID",
         "Pos_in_Kb",
-        "Restricted_LRT_value"
+        "Restricted_LRT_value",
+        "p_value"
       )
       markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
       markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
       markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
+      markers_in_Kb_rlrt_value_chromo_num_k$p_value <- sapply(
+        rlrt_value,
+        function(x) get_p_value(distrib_, x)
+      )
 
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste("markers_in_kb_with_rlrt_value_on_chromosome_",
@@ -365,10 +384,10 @@ if (kernel_index == 1) {
       rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k, sep = ""))
       scanned_position_kb <- rep(0, length(rlrt_value))
 
-      flank_markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 6))
+      flank_markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(0, length(rlrt_value), 7))
       colnames(flank_markers_in_Kb_rlrt_value_chromo_num_k) <- col.names <- c(
         "left_flank_MkID_to_center", "Pos_in_Kb_left_flank_MkID", "right_flank_MkID_to_center",
-        "Pos_in_Kb_right_flank_MkID", "Restricted_LRT_value", "Window_starting_index"
+        "Pos_in_Kb_right_flank_MkID", "Restricted_LRT_value", "p_value", "Window_starting_index"
       )
 
       p <- 1
@@ -385,6 +404,11 @@ if (kernel_index == 1) {
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb_right_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + (k + 1)]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[p] <- rlrt_value[p]
+
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$p_value[p] <- get_p_value(
+          distrib_ = simulated_rlrt_distribution,
+          test_statistic_value_ = rlrt_value[p]
+        )
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Window_starting_index[p] <- p
 
