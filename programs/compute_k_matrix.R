@@ -10,7 +10,7 @@ library(data.table)
 library(snpReady)
 
 # read parameters for kernel type and genotype data
-kernel_index <- scan("kernel_index")
+kernel_index <- scan("kernel_index.txt")
 genotype_matrix <- as.data.frame(fread("genotypes.txt",
   header = TRUE
 ))
@@ -39,7 +39,7 @@ tryCatch(
     }
     # write results
     write.table(k_matrix,
-      file = "k_matrix", sep = " ",
+      file = "k_matrix.txt", sep = " ",
       col.names = FALSE, row.names = FALSE, quote = FALSE
     )
   },

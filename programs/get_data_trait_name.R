@@ -31,7 +31,7 @@ apply_box_cox_ <- FALSE
 phenotypes <- as.data.frame(fread("phenotypes.txt", header = TRUE))
 phenotypes <- phenotypes[, -match("GID", colnames(phenotypes))]
 
-trait_name <- as.character(read.table("trait_name"))
+trait_name <- as.character(read.table("trait_name.txt"))
 phenotypes_trait_name <- phenotypes[, trait_name]
 
 if (apply_box_cox_) {
@@ -42,6 +42,6 @@ if (apply_box_cox_) {
 }
 
 write.table(phenotypes_trait_name,
-  file = "phenotypes_trait_name",
+  file = "phenotypes_trait_name.txt",
   col.names = FALSE, row.names = FALSE, sep = " ", quote = FALSE
 )

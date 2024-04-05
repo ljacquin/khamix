@@ -1,8 +1,8 @@
 #---------------------------#
 # read files and parameters #
 #---------------------------#
-nb_chromosomes <- scan("nb_chromosomes")
-nb_snp_hap <- scan("nb_snp_hap")
+nb_chromosomes <- scan("nb_chromosomes.txt")
+nb_snp_hap <- scan("nb_snp_hap.txt")
 
 shift_quantity <- (floor(nb_snp_hap / 2) - 1)
 
@@ -30,7 +30,11 @@ if (nb_snp_hap > 1) {
 
     index_last_window <- (length(index_chrom_num) - (nb_snp_hap - 1))
 
-    vect_nb_hap <- scan(paste("vect_nb_hap_window_chromo_num_", chromo_num_k, sep = ""))
+    vect_nb_hap <- scan(paste0(
+      "vect_nb_hap_window_chromo_num_",
+      chromo_num_k,
+      ".txt"
+    ))
     scanned_position_kb <- rep(0, length(vect_nb_hap))
 
     p <- 1
@@ -45,10 +49,12 @@ if (nb_snp_hap > 1) {
     plot(scanned_position_kb, vect_nb_hap,
       type = "p", pch = 16, cex = 0.5, col = "black",
       xlab = "Tested position in Kb at the \n center of the sliding window",
-      ylab = "Number of haplotypes", main = paste("Number of haplotypes for each \n window on ",
-        paste("chromosome ", chromo_num_k, sep = ""),
-        sep = ""
-      ), cex.main = 0.8, cex.lab = 0.8
+      ylab = "Number of haplotypes",
+      main = paste0(
+        "Number of haplotypes for each \n window on ",
+        "chromosome ", chromo_num_k
+      ),
+      cex.main = 0.8, cex.lab = 0.8
     )
   }
 
@@ -56,17 +62,24 @@ if (nb_snp_hap > 1) {
 
   for (chromo_num_k in 1:nb_chromosomes)
   {
-    pdf(paste(paste("number_of_haplotypes_per_window_for_chromosome_", chromo_num_k, sep = ""),
-      ".pdf",
-      sep = ""
-    ))
+    pdf(
+      paste0(
+        "number_of_haplotypes_per_window_for_chromosome_",
+        chromo_num_k,
+        ".pdf"
+      )
+    )
 
     index_chrom_num <- which(repeated_chrom_num == chromo_num_k)
     position_kb_chrom_num <- as.numeric(as.character(position_kb[index_chrom_num]))
 
     index_last_window <- (length(index_chrom_num) - (nb_snp_hap - 1))
 
-    vect_nb_hap <- scan(paste("vect_nb_hap_window_chromo_num_", chromo_num_k, sep = ""))
+    vect_nb_hap <- scan(paste0(
+      "vect_nb_hap_window_chromo_num_",
+      chromo_num_k,
+      ".txt"
+    ))
     scanned_position_kb <- rep(0, length(vect_nb_hap))
 
     p <- 1
@@ -81,10 +94,12 @@ if (nb_snp_hap > 1) {
     plot(scanned_position_kb, vect_nb_hap,
       type = "p", pch = 16, cex = 0.5, col = "black",
       xlab = "Tested position in Kb at the \n center of the sliding window",
-      ylab = "Number of haplotypes", main = paste("Number of haplotypes for each \n window on ",
-        paste("chromosome ", chromo_num_k, sep = ""),
-        sep = ""
-      ), cex.main = 0.8, cex.lab = 0.8
+      ylab = "Number of haplotypes",
+      main = paste0(
+        "Number of haplotypes for each \n window on ",
+        "chromosome ", chromo_num_k
+      ),
+      cex.main = 0.8, cex.lab = 0.8
     )
 
     dev.off()

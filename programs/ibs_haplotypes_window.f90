@@ -15,23 +15,23 @@ integer,allocatable::ibs_window(:),tab(:,:),classe_dip(:)
 !=====================!
 !== read parameters ==!	
 !=====================!
-open(1,file='scanned_position')
+open(1,file='scanned_position.txt')
 read(1,*)index_col
 close(1)
 
-open(28,file='nb_snp_chromo_num_k')
+open(28,file='nb_snp_chromo_num_k.txt')
 read(28,*) nb_snp_chromo_num_k
 close(28)
 
 
-open(50,file='nb_snp_hap')
+open(50,file='nb_snp_hap.txt')
 read(50,*)nb_snp_hap
 close(50)
 
 !============================!
 !== read phased haplotypes ==!	
 !============================!
-open(2, file='haplotypes_chromo_num_k')
+open(2, file='haplotypes_chromo_num_k.txt')
 nb_hap=0
 	    do
 		read(2,*,iostat=io)
@@ -80,13 +80,13 @@ end do
 !============================================!
 !- write the IBS status of these haplotypes -!
 !============================================!
-open(2, file='ibs_status_haplotypes_window')
+open(2, file='ibs_status_haplotypes_window.txt')
    do i=1,nb_hap   		
 	write(2,'(1(i5,1x))')(ibs_window(i))
    end do         
  close(2)
 
-open(25, file='nb_col_h_matrix')
+open(25, file='nb_col_h_matrix.txt')
 rankH=maxval(ibs_window)
 write(25,'(i3)')(rankH)
  close(25)
@@ -101,7 +101,7 @@ do j=1,nb_hap
  end do
 !****************
 
-open(8, file='haplotype_classes')
+open(8, file='haplotype_classes.txt')
    do i=1,rankH      	 
 	   do j=1,nb_hap
 	        

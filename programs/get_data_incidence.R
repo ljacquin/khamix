@@ -23,7 +23,7 @@ if (file.exists("incidence_fixed_effects.txt")) {
 # write fixed effects design matrix
 x_matrix <- as.matrix(x_matrix)
 write.table(x_matrix,
-  file = "x_matrix", col.names = FALSE, row.names = FALSE,
+  file = "x_matrix.txt", col.names = FALSE, row.names = FALSE,
   sep = " ", quote = FALSE
 )
 
@@ -40,6 +40,6 @@ if (file.exists("incidence_polygenic_effects.txt")) {
 # write polygenic effects design matrix
 z_u_matrix <- as.matrix(z_u_matrix)
 write.table(z_u_matrix,
-  file = "z_u_matrix", col.names = FALSE, row.names = FALSE,
+  file = "z_u_matrix.txt", col.names = FALSE, row.names = FALSE,
   sep = " ", quote = FALSE
 )

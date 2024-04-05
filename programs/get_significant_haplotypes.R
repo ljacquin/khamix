@@ -3,9 +3,9 @@ library(data.table)
 #--------------------------#
 # read parameters and data #
 #--------------------------#
-nb_chromosomes <- scan("nb_chromosomes")
-nb_snp_hap <- scan("nb_snp_hap")
-alpha <- as.numeric(scan("signif_level"))
+nb_chromosomes <- scan("nb_chromosomes.txt")
+nb_snp_hap <- scan("nb_snp_hap.txt")
+alpha <- as.numeric(scan("signif_level.txt"))
 
 physical_map_matrix <- read.table("physical_map.txt", header = TRUE)
 repeated_chrom_num <- physical_map_matrix[, match(
@@ -17,9 +17,11 @@ position_kb <- physical_map_matrix[, match(
   colnames(physical_map_matrix)
 )]
 
-phased_genotype_matrix <- as.data.frame(fread("phased_genotypes.txt",
-  header = TRUE
-))
+phased_genotype_matrix <- as.data.frame(
+  fread("phased_genotypes.txt",
+    header = TRUE
+  )
+)
 phased_genotype_matrix <- phased_genotype_matrix[, -match(
   c("I", "ID"),
   colnames(phased_genotype_matrix)
@@ -44,8 +46,10 @@ if (nb_snp_hap == 1) {
 
     phased_genotypes_chromo_num_k <- phased_genotype_matrix[, index_chrom_num]
 
-    rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k,
-      sep = ""
+    rlrt_value <- scan(paste0(
+      "vect_rlrt_value_chromo_num_",
+      chromo_num_k,
+      ".txt"
     ))
 
     index_signif_rlrt_value <- which(rlrt_value >= rlrt_threshold)
@@ -55,13 +59,13 @@ if (nb_snp_hap == 1) {
       for (m in index_signif_rlrt_value)
       {
         write.table(phased_genotypes_chromo_num_k[, m],
-          file = paste(paste(
-            paste("significant_snps_chromo_num_",
-              chromo_num_k,
-              sep = ""
-            ), "_snp_num_",
-            sep = ""
-          ), m, sep = ""),
+          file = paste0(
+            "significant_snps_chromo_num_",
+            chromo_num_k,
+            "_snp_num_",
+            m,
+            ".txt"
+          ),
           row.names = FALSE, col.names = FALSE, quote = FALSE, sep = " "
         )
       }
@@ -78,8 +82,10 @@ if (nb_snp_hap == 1) {
 
     phased_genotypes_chromo_num_k <- phased_genotype_matrix[, index_chrom_num]
 
-    rlrt_value <- scan(paste("vect_rlrt_value_chromo_num_", chromo_num_k,
-      sep = ""
+    rlrt_value <- scan(paste0(
+      "vect_rlrt_value_chromo_num_",
+      chromo_num_k,
+      ".txt"
     ))
     index_signif_rlrt_value <- which(rlrt_value >= rlrt_threshold)
     print(index_signif_rlrt_value)
@@ -88,15 +94,17 @@ if (nb_snp_hap == 1) {
       for (m in index_signif_rlrt_value)
       {
         write.table(phased_genotypes_chromo_num_k[, m:(m + (nb_snp_hap - 1))],
-          file = paste(paste(
-            paste("significant_haplotypes_chromo_num_",
-              chromo_num_k,
-              sep = ""
-            ),
+          file = paste0(
+            "significant_haplotypes_chromo_num_",
+            chromo_num_k,
             "_window_",
-            sep = ""
-          ), m, sep = ""),
-          row.names = FALSE, col.names = FALSE, quote = FALSE, sep = " "
+            m,
+            ".txt"
+          ),
+          row.names = FALSE,
+          col.names = FALSE,
+          quote = FALSE,
+          sep = " "
         )
       }
     }
