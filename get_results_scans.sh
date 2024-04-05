@@ -79,6 +79,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 
 		mkdir results_all_chromosomes                                              
 		mv kernelized_gwas_for_*											results_all_chromosomes
+		rm vect_nb_hap_window_chromo_num_*
 
 	fi
 
@@ -116,6 +117,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 
 		mkdir results_all_chromosomes                                              
 		mv gwas_for_*													results_all_chromosomes
+		rm vect_nb_hap_window_chromo_num_*
 
 	fi
 

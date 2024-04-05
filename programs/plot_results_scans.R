@@ -67,7 +67,7 @@ if (kernel_index == 1) {
       markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
       markers_in_Kb_rlrt_value_chromo_num_k$p_value <- sapply(
         rlrt_value,
-        function(x) get_p_value(distrib_, x)
+        function(x) get_p_value(distrib_ = simulated_rlrt_distribution, x)
       )
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste("markers_in_kb_with_rlrt_value_on_chromosome_", chromo_num_k, sep = ""),
@@ -294,7 +294,7 @@ if (kernel_index == 1) {
       markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
       markers_in_Kb_rlrt_value_chromo_num_k$p_value <- sapply(
         rlrt_value,
-        function(x) get_p_value(distrib_, x)
+        function(x) get_p_value(distrib_ = simulated_rlrt_distribution, x)
       )
 
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
