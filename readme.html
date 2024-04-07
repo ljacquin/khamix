@@ -448,7 +448,11 @@ or</li>
 <li><code>git clone https://github.com/ljacquin/khamix.git</code>
 <p>
 </p></li>
-</ul></li>
+</ul>
+<p>⚠️ Be sure that<code>git</code> is installed beforehand, otherwise
+install it with the command <code>sudo apt install git</code></p>
+<p>
+</p></li>
 <li><p>Given that <code>R ≥ 4.1.2</code> is already installed, use the
 following command to install <code>khamix</code> required <code>R</code>
 libraries :</p>
@@ -472,7 +476,9 @@ commands to make scripts and programs executable :</p>
 <code>phased_genotypes.txt</code>, <code>phenotypes.txt</code>,
 <code>physical_map.txt</code> .</p>
 <p>⚠️ Ensure that the new data files replacing the old ones adhere to
-the same format.</p>
+the same format. In other words, headers and rows must be in the same
+format, i.e. <code>GID</code>, <code>MkID</code>, <code>chr</code>,
+<code>Pos</code>, etc., must be identical.</p>
 <p>⚠️ If the files <code>incidence_fixed_effects.txt</code> and
 <code>incidence_polygenic_effects.txt</code> cannot be replaced prior to
 an analysis then they must be removed or deleted from the
