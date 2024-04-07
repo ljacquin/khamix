@@ -519,7 +519,14 @@ be redirected using the command
 <li><p>Upon completion of the jobs, execute the command
 <code>./get_results_scans.sh</code> to retrieve all results, including
 RLRT graphs per chromosome, significant regions/windows with
-corresponding haplotypes per chromosome, etc.</p></li>
+corresponding haplotypes per chromosome, etc.</p>
+<p>⚠️ The significance level of results can be modified through the
+<code>get_results_scans.sh</code> script, as many times as necessary,
+before each run of the command <code>./get_results_scans.sh</code>. To
+do so, change the <code>modify_signif_level</code> and
+<code>new_signif_level</code> parameters within the script. Keep in mind
+that the <code>results_genome_scan</code> folder will be cleared each
+time, so make sure to save previous results if necessary.</p></li>
 <li><p>Final note: The <code>khamix</code> folder can be duplicated
 multiple times, with each copy renamed, to analyze multiple traits in
 parallel. For example, folders like <code>khamix_LLGTH</code>,
