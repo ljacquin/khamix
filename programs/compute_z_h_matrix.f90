@@ -14,7 +14,7 @@ real(r8),allocatable::h_matrix(:,:)
 !====================================================!
 !- read the IBS status of haplotypes for the window -!
 !====================================================!
-open(1, file='ibs_status_haplotypes_window')
+open(1, file='ibs_status_haplotypes_window.txt')
 nbhaps=0
 	    do
 		read(1,*,iostat=io)
@@ -52,7 +52,7 @@ k=2
 !====================================================!
 !- write the incidence matrix for haplotype effects -!
 !====================================================!
-open(24,file='z_h_matrix')
+open(24,file='z_h_matrix.txt')
 allocate(W(nb_elem,rank_h_matrix))
 W=0 
 do p=1,nb_elem    
@@ -77,7 +77,7 @@ end do
 !- write the covariance h matrix for haplotype effects -!
 !=======================================================!
 allocate(h_matrix(rank_h_matrix,rank_h_matrix))
-open(4,file='h_matrix')
+open(4,file='h_matrix.txt')
 do i=1,rank_h_matrix
      do j=1,rank_h_matrix
 	

@@ -21,7 +21,7 @@ repeated_chrom_num <- physical_map_matrix[, match(
 #-----------------------------------------#
 # extract and write data for chromo_num_k #
 #-----------------------------------------#
-chromo_num_k <- read.table("chromo_num_k")
+chromo_num_k <- read.table("chromo_num_k.txt")
 
 # get snp index for chromo_num_k
 index_snp_chromo_num_k <- which(as.numeric(as.character(
@@ -30,10 +30,10 @@ index_snp_chromo_num_k <- which(as.numeric(as.character(
 
 # write data associated to chromo_num_k
 write.table(phased_genotype_matrix[, index_snp_chromo_num_k],
-  file = "haplotypes_chromo_num_k", col.names = FALSE, row.names = FALSE,
+  file = "haplotypes_chromo_num_k.txt", col.names = FALSE, row.names = FALSE,
   sep = " ", quote = FALSE
 )
 write.table(length(index_snp_chromo_num_k),
-  file = "nb_snp_chromo_num_k", col.names = FALSE, row.names = FALSE,
+  file = "nb_snp_chromo_num_k.txt", col.names = FALSE, row.names = FALSE,
   sep = " ", quote = FALSE
 )

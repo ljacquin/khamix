@@ -6,28 +6,28 @@ library(data.table)
 # script for computing the rlrt value at the center of the analyzed window
 
 # get number of observations
-y <- scan("phenotypes_trait_name")
+y <- scan("phenotypes_trait_name.txt")
 n <- length(y)
 
 # get design matrix of fixed effects
-x_matrix <- as.data.frame(fread("x_matrix"))
+x_matrix <- as.data.frame(fread("x_matrix.txt"))
 x_matrix <- apply(x_matrix, 2, as.numeric)
 
 # get design matrix and kernel matrix for random haplotype effects
-nb_col_h_matrix <- scan("nb_col_h_matrix")
-z_h_matrix <- matrix(scan("z_h_matrix"),
+nb_col_h_matrix <- scan("nb_col_h_matrix.txt")
+z_h_matrix <- matrix(scan("z_h_matrix.txt"),
   ncol = nb_col_h_matrix,
   byrow = TRUE
 )
-h_matrix <- matrix(scan("h_matrix"),
+h_matrix <- matrix(scan("h_matrix.txt"),
   ncol = nb_col_h_matrix,
   byrow = TRUE
 )
 
 # get design matrix and kernel matrix for random polygenic effects
-z_u_matrix <- as.data.frame(fread("z_u_matrix"))
+z_u_matrix <- as.data.frame(fread("z_u_matrix.txt"))
 z_u_matrix <- apply(z_u_matrix, 2, as.numeric)
-k_matrix <- matrix(scan("k_matrix"),
+k_matrix <- matrix(scan("k_matrix.txt"),
   ncol = n, byrow = TRUE
 )
 
@@ -53,7 +53,7 @@ tryCatch(
     rlrt_value <- -2 * (rll_h0 - rll_h1)
     write.matrix(ifelse(rlrt_value > 0,
       rlrt_value, 0
-    ), file = "rlrt_value", sep = " ")
+    ), file = "rlrt_value.txt", sep = " ")
   },
   error = function(e) {
     cat(
@@ -62,7 +62,7 @@ tryCatch(
       conditionMessage(e), "\n"
     )
     write.matrix(0,
-      file = "rlrt_value",
+      file = "rlrt_value.txt",
       sep = " "
     )
   }

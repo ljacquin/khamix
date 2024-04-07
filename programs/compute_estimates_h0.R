@@ -4,17 +4,17 @@ library(EMMREML)
 library(data.table)
 
 # get number of observations
-y <- scan("phenotypes_trait_name")
+y <- scan("phenotypes_trait_name.txt")
 n <- length(y)
 
 # get design matrix of fixed effects
-x_matrix <- as.data.frame(fread("x_matrix"))
+x_matrix <- as.data.frame(fread("x_matrix.txt"))
 x_matrix <- apply(x_matrix, 2, as.numeric)
 
 # get design matrix and kernel matrix for random polygenic effects
-z_u_matrix <- as.data.frame(fread("z_u_matrix"))
+z_u_matrix <- as.data.frame(fread("z_u_matrix.txt"))
 z_u_matrix <- apply(z_u_matrix, 2, as.numeric)
-k_matrix <- matrix(scan("k_matrix"),
+k_matrix <- matrix(scan("k_matrix.txt"),
   ncol = n, byrow = TRUE
 )
 
