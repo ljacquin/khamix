@@ -44,7 +44,7 @@ where :
   * ```git clone https://github.com/ljacquin/khamix.git``` 
   <p> </p>
   
-  ⚠️ Be sure that``` git``` is installed beforehand, otherwise install it with the command ```sudo apt install git```
+  ⚠️ Make sure``` git``` is installed beforehand; if not, install it with``` sudo apt install git```.
   <p> </p>
 
 * Given that ```R ≥ 4.1.2``` is already installed, use the following command to install ```khamix``` required ```R``` libraries : 
@@ -58,10 +58,11 @@ where :
   *  ```./make_scripts_programs_executable.sh```
   <p> </p>
 
-* In the ```data_parameters``` folder, replace the following 6 files which serve as examples : ```genotypes.txt```, ```incidence_fixed_effects.txt```,
- ```incidence_polygenic_effects.txt```, ```phased_genotypes.txt```, ```phenotypes.txt```, ```physical_map.txt``` .
+* In the ```data_parameters``` folder, replace the following 6 files which serve as examples :  
+    
+    ```genotypes.txt```, ```incidence_fixed_effects.txt```, ```incidence_polygenic_effects.txt```, ```phased_genotypes.txt```,                  ```phenotypes.txt```, ```physical_map.txt```.
 
-    ⚠️ Ensure that the new data files replacing the old ones adhere to the same format. In other words, headers and rows must be in the same format, i.e. ```GID ```, ```MkID ```,	 ```chr```,  ```Pos```, etc., must be identical.
+    ⚠️ Ensure that the new data files replacing the old ones adhere to the same format. In other words, headers and rows must be in the same format, i.e. ```GID```, ```MkID```, ```chr```, ```Pos```, etc., must be identical.
     
     ⚠️ If the files ```incidence_fixed_effects.txt``` and ```incidence_polygenic_effects.txt``` cannot be replaced prior to an analysis then they must be removed or deleted from the ```data_parameters``` folder. In this case, the fixed and polygenic design matrices will default to $X=1_n$ and $Z_u=I_n$ respectively.
 
