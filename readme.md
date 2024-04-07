@@ -92,6 +92,8 @@ where :
 
 ## References :
 
+* Charlotte Baey, Paul-Henry P.-H. Cournède, Estelle Kuhn. Asymptotic distribution of likelihood ratio test statistics for variance components in nonlinear mixed effects models. Computational Statistics and Data Analysis, 2019, 135, pp.107-122. 10.1016/j.csda.2019.01.014. hal-02367731
+
 * Lafarge T., Bueno C., Frouin J., Jacquin L., Courtois B., Ahmadi N. (2017). Genome-wide association analysis for heat tolerance at flowering
 detected a large set of genes involvedin adaptation to thermal and other stresses.
 
