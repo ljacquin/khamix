@@ -44,7 +44,7 @@ where :
   * ```git clone https://github.com/ljacquin/khamix.git``` 
   <p> </p>
   
-  ⚠️ Make sure``` git``` is installed beforehand; if not, install it with``` sudo apt install git```.
+  ⚠️ Make sure``` git``` is installed beforehand; if not, install it with ```sudo apt install git```.
   <p> </p>
 
 * Given that ```R ≥ 4.1.2``` is already installed, use the following command to install ```khamix``` required ```R``` libraries : 
