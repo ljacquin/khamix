@@ -21,7 +21,7 @@ where :
   * $\varepsilon$ denotes the vector of residuals.
   <p> </p>
 
-  The distribution of the restricted likelihood ratio test (RLRT) associated to these models is not known but it can be approximated by $\frac{1}{2}(\chi^2_1 + \chi^2_2)$ according to Self & Liang (1987).
+  The distribution of the restricted likelihood ratio test (RLRT) associated to these models is not known, but it can be approximated by $\frac{1}{2}(\chi^2_1 + \chi^2_2)$ according to Self & Liang (1987) and Baey $\textit{et al.}$ (2021).
 
 ### 🔍 Remarks 
 
