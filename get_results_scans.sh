@@ -9,22 +9,30 @@
 mkdir results_genome_scan
 cd data_parameters/
 
-nb_chromosomes=$(cat "nb_chromosomes")    
-nb_snp_hap=$(cat "nb_snp_hap")    
-kernel_index=$(cat "kernel_index")
+nb_chromosomes=$(cat "nb_chromosomes.txt")    
+nb_snp_hap=$(cat "nb_snp_hap.txt")    
+kernel_index=$(cat "kernel_index.txt")
 
-cp trait_name                    ../results_genome_scan
-cp nb_snp_hap                    ../results_genome_scan
-cp nb_chromosomes                ../results_genome_scan
-cp physical_map.txt              ../results_genome_scan
-cp phased_genotypes.txt          ../results_genome_scan
-cp kernel_index                  ../results_genome_scan
-cp signif_level                  ../results_genome_scan
+modify_signif_level=true
+new_signif_level=0.001
+
+if [ "$modify_signif_level"=true ] ; then
+    echo "$new_signif_level" > signif_level.txt
+fi
+
+
+cp trait_name.txt			../results_genome_scan
+cp nb_snp_hap.txt			../results_genome_scan
+cp nb_chromosomes.txt			../results_genome_scan
+cp physical_map.txt			../results_genome_scan
+cp phased_genotypes.txt			../results_genome_scan
+cp kernel_index.txt			../results_genome_scan
+cp signif_level.txt			../results_genome_scan
  
 cd ../programs/
-cp plot_results_scans.R          ../results_genome_scan
-cp plot_nb_hap_scans.R           ../results_genome_scan
-cp get_significant_haplotypes.R  ../results_genome_scan
+cp plot_results_scans.R			../results_genome_scan
+cp plot_nb_hap_scans.R			../results_genome_scan
+cp get_significant_haplotypes.R		../results_genome_scan
 cd ../
 
 #--------------------------------#
@@ -34,8 +42,8 @@ cd ../
 for chromo_num_k in $(seq 1 1 $nb_chromosomes)
 do
 	cd genome_scan_chromo_num_$chromo_num_k
-	cp vect_rlrt_value_chromo_num_$chromo_num_k	../results_genome_scan
-	cp vect_nb_hap_window_chromo_num_$chromo_num_k	../results_genome_scan
+	cp vect_rlrt_value_chromo_num_$chromo_num_k.txt		../results_genome_scan
+	cp vect_nb_hap_window_chromo_num_$chromo_num_k.txt	../results_genome_scan
 	cd ../
 done
 
@@ -119,9 +127,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 		mv gwas_for_*													results_all_chromosomes
 		rm vect_nb_hap_window_chromo_num_*
 
-	fi
-
-    
+	fi    
 
 fi    
 clear
