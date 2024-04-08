@@ -60,13 +60,14 @@ if (kernel_index == 1) {
       ))
 
       markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(
-        0, length(rlrt_value), 4
+        0, length(rlrt_value), 5
       ))
       colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "MkID",
         "Pos_in_Kb",
         "Restricted_LRT_value",
-        "p_value"
+        "p_value",
+        "Chr"
       )
       markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
       markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
@@ -75,6 +76,7 @@ if (kernel_index == 1) {
         rlrt_value,
         function(x) get_p_value(distrib_ = simulated_rlrt_distribution, x)
       )
+      markers_in_Kb_rlrt_value_chromo_num_k$Chr <- chromo_num_k
 
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste0(
@@ -176,12 +178,13 @@ if (kernel_index == 1) {
       scanned_position_kb <- rep(0, length(rlrt_value))
 
       flank_markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(
-        0, length(rlrt_value), 7
+        0, length(rlrt_value), 8
       ))
       colnames(flank_markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "left_flank_MkID_to_center", "Pos_in_Kb_left_flank_MkID",
         "right_flank_MkID_to_center", "Pos_in_Kb_right_flank_MkID",
-        "Restricted_LRT_value", "p_value", "Window_starting_index"
+        "Restricted_LRT_value", "p_value", "Window_starting_index",
+        "Chr"
       )
 
       p <- 1
@@ -206,7 +209,8 @@ if (kernel_index == 1) {
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Window_starting_index[p] <- p
         p <- p + 1
       }
-
+      flank_markers_in_Kb_rlrt_value_chromo_num_k$Chr <- chromo_num_k
+      
       write.table(
         flank_markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste0(
@@ -320,13 +324,14 @@ if (kernel_index == 1) {
       ))
 
       markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(
-        0, length(rlrt_value), 4
+        0, length(rlrt_value), 5
       ))
       colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "MkID",
         "Pos_in_Kb",
         "Restricted_LRT_value",
-        "p_value"
+        "p_value",
+        "Chr"
       )
       markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
       markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
@@ -335,7 +340,8 @@ if (kernel_index == 1) {
         rlrt_value,
         function(x) get_p_value(distrib_ = simulated_rlrt_distribution, x)
       )
-
+      markers_in_Kb_rlrt_value_chromo_num_k$Chr <- chromo_num_k
+      
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste0(
           "markers_in_kb_with_rlrt_value_on_chromosome_",
@@ -437,12 +443,13 @@ if (kernel_index == 1) {
       scanned_position_kb <- rep(0, length(rlrt_value))
 
       flank_markers_in_Kb_rlrt_value_chromo_num_k <- data.frame(matrix(
-        0, length(rlrt_value), 7
+        0, length(rlrt_value), 8
       ))
       colnames(flank_markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "left_flank_MkID_to_center", "Pos_in_Kb_left_flank_MkID",
         "right_flank_MkID_to_center", "Pos_in_Kb_right_flank_MkID",
-        "Restricted_LRT_value", "p_value", "Window_starting_index"
+        "Restricted_LRT_value", "p_value", "Window_starting_index",
+        "Chr"
       )
 
       p <- 1
@@ -467,7 +474,8 @@ if (kernel_index == 1) {
         flank_markers_in_Kb_rlrt_value_chromo_num_k$Window_starting_index[p] <- p
         p <- p + 1
       }
-
+      flank_markers_in_Kb_rlrt_value_chromo_num_k$Chr <- chromo_num_k
+      
       write.table(
         flank_markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste0(
