@@ -1,3 +1,4 @@
+#!/bin/sh
 # extract haplotype data for analyzed chromosome
 R -q --vanilla<get_data_chromo_num_k.R
 

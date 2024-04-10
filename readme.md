@@ -77,7 +77,7 @@ where :
   * ```nb_chromosomes``` denotes the total number of chromosomes for the analyzed data set.
   * ```kernel_index``` denotes the type of kernel (i.e. VanRaden or Gaussian) used to build the genomic covariance matrix $K$. 
   * ```signif_level``` corresponds to the significance level for the restricted likelihood ratio test (RLRT).
-  * ```local_or_cluster``` corresponds to the type of computation, i.e. local computation or parallelized computation on a cluster.
+  * ```local_or_cluster``` corresponds to the type of computation, i.e. local computation or parallelized computation on a cluster. Please note that depending on the cluster configuration, you may need to make adjustments within the ```khamix.sh``` script for parallelized computation. Specifically, you may need to comment out either the ```qsub``` or ```sbatch``` command based on the cluster requirements.
   <p> </p>
   
 * To start the genome scan for the analyzed trait, simply execute the command ```./khamix.sh```. Note that the script's outputs can be redirected using the command ```./khamix.sh > khamix_outputs```.

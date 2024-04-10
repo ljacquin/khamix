@@ -7,7 +7,7 @@
 
 # start program for reformatting results
 if [ ! -d results_genome_scan ]; then
- 	echo mkdir results_genome_scan
+ 	mkdir results_genome_scan
 fi
 cd data_parameters/
 
@@ -67,7 +67,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 			if [ -d results_chromo_num_$chromo_num_k ]; then
 				echo rm -rf results_chromo_num_$chromo_num_k/*
 			else
-				echo mkdir results_chromo_num_$chromo_num_k
+				mkdir results_chromo_num_$chromo_num_k
 			fi			
 			mv flanking_markers_of_tested_positions_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*		results_chromo_num_$chromo_num_k
 			mv flanking_markers_of_tested_positions_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*	results_chromo_num_$chromo_num_k	
@@ -81,7 +81,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 		if [ -d results_all_chromosomes ]; then
 			echo rm -rf results_all_chromosomes/*
 		else
-			echo mkdir results_all_chromosomes
+			mkdir results_all_chromosomes
 		fi
 		mv number_of_haplotypes_per_window_for_complete_genome_scan*							results_all_chromosomes
 		mv kernelized_haplotype_based_genome_scan_for_*									results_all_chromosomes
@@ -93,7 +93,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 			if [ -d results_chromo_num_$chromo_num_k ]; then
 				echo rm -rf results_chromo_num_$chromo_num_k/*
 			else
-				echo mkdir results_chromo_num_$chromo_num_k
+				mkdir results_chromo_num_$chromo_num_k
 			fi
 			mv markers_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*						results_chromo_num_$chromo_num_k
 			mv markers_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*				results_chromo_num_$chromo_num_k
@@ -105,7 +105,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 		if [ -d results_all_chromosomes ]; then
 			echo rm -rf results_all_chromosomes/*
 		else
-			echo mkdir results_all_chromosomes
+			mkdir results_all_chromosomes
 		fi                                              
 		mv kernelized_gwas_for_*											results_all_chromosomes
 		rm vect_nb_hap_window_chromo_num_*
@@ -121,7 +121,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 			if [ -d results_chromo_num_$chromo_num_k ]; then
 				echo rm -rf results_chromo_num_$chromo_num_k/*
 			else
-				echo mkdir results_chromo_num_$chromo_num_k
+				mkdir results_chromo_num_$chromo_num_k
 			fi
 			mv flanking_markers_of_tested_positions_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*		results_chromo_num_$chromo_num_k
 			mv flanking_markers_of_tested_positions_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*	results_chromo_num_$chromo_num_k	
@@ -135,7 +135,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 		if [ -d results_all_chromosomes ]; then
 			echo rm -rf results_all_chromosomes/*
 		else
-			echo mkdir results_all_chromosomes
+			mkdir results_all_chromosomes
 		fi
 		mv number_of_haplotypes_per_window_for_complete_genome_scan*							results_all_chromosomes
 		mv haplotype_based_genome_scan_for_*										results_all_chromosomes
@@ -147,7 +147,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 			if [ -d results_chromo_num_$chromo_num_k ]; then
 				echo rm -rf results_chromo_num_$chromo_num_k/*
 			else
-				echo mkdir results_chromo_num_$chromo_num_k
+				mkdir results_chromo_num_$chromo_num_k
 			fi
 			mv markers_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*						results_chromo_num_$chromo_num_k
 			mv markers_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*				results_chromo_num_$chromo_num_k
@@ -159,7 +159,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 		if [ -d results_all_chromosomes ]; then
 			echo rm -rf results_all_chromosomes/*
 		else
-			echo mkdir results_all_chromosomes
+			mkdir results_all_chromosomes
 		fi                                              
 		mv gwas_for_*													results_all_chromosomes
 		rm vect_nb_hap_window_chromo_num_*

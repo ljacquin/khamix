@@ -95,8 +95,9 @@ do
   	# perform genome scan by sliding window for chromosome $chromo_num_k 
 	if [ "$local_or_cluster" -gt 1 ] ; then
 		echo 	
-		#qsub -q normal.q -v scan_chromo_num_k.sh		# a cc2 queue
-		qsub -q workq scan_chromo_num_k.sh			# a cc2 queue
+		# qsub -q normal.q -v scan_chromo_num_k.sh  # a cc2 queue
+		# sbatch scan_chromo_num_k.sh			
+		qsub -q workq scan_chromo_num_k.sh			
 	else
 		echo
 		./scan_chromo_num_k.sh
