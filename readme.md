@@ -82,7 +82,7 @@ where :
   
 * To start the genome scan for the analyzed trait, simply execute the command ```./khamix.sh```. Note that the script's outputs can be redirected using the command ```./khamix.sh > khamix_outputs```.
 
-* To monitor the progress of parallel jobs, use the command ```qstat -u username```.
+* To monitor the progress of parallel jobs, use the command ```qstat -u username``` (or equivalent depending on the cluster configuration).
 
 * Upon completion of the jobs, execute the command ```./get_results_scans.sh``` to retrieve all results, including RLRT graphs per chromosome, significant regions/windows with corresponding haplotypes per chromosome, etc.
 
