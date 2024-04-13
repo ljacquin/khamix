@@ -34,11 +34,9 @@ mkdir estimates_h0/
 cp data_parameters/trait_name.txt				estimates_h0/
 cp data_parameters/phenotypes.txt				estimates_h0/
 if [ -f data_parameters/incidence_fixed_effects.txt ] ; then
-    echo
     cp data_parameters/incidence_fixed_effects.txt		estimates_h0/
 fi
 if [ -f data_parameters/incidence_polygenic_effects.txt ] ; then
-    echo
     cp data_parameters/incidence_polygenic_effects.txt	estimates_h0/
 fi
 cp data_parameters/kernel_index.txt				estimates_h0/
@@ -94,12 +92,10 @@ do
 
   	# perform genome scan by sliding window for chromosome $chromo_num_k 
 	if [ "$local_or_cluster" -gt 1 ] ; then
-		echo 	
 		# qsub -q normal.q -v scan_chromo_num_k.sh  # a cc2 queue
 		# sbatch scan_chromo_num_k.sh			
 		qsub -q workq scan_chromo_num_k.sh			
 	else
-		echo
 		./scan_chromo_num_k.sh
 	fi
    
