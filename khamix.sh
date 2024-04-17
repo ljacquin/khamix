@@ -1,6 +1,6 @@
 #!/bin/sh
 #=======================================================================#
-#  kernelized haplotype-based mixed model association mapping (KHAMIX)  #										
+#  kernelized haplotype-based mixed model association mapping (KHAMIX)  #
 #=======================================================================#
 # source modules for R
 # source module_load_r.sh
@@ -9,11 +9,11 @@
 #1. setting haplotype size, in number of markers, and trait to be analyzed #
 #--------------------------------------------------------------------------#
 trait_name="LLGTH"
-nb_snp_hap=6			
+nb_snp_hap=6
 nb_chromosomes=12		# total number of chromosomes for the analyzed data set
-kernel_index=1			# 1 for VanRaden linear kernel and 2 for Gaussian kernel (i.e. RBF)		        
+kernel_index=1			# 1 for VanRaden linear kernel and 2 for Gaussian kernel (i.e. RBF)
 signif_level=0.01		# significance level for the restricted likelihood ratio test (RLRT)
-local_or_cluster=1		# 1 for local computation and 2 for parallelize computation on a cluster 
+local_or_cluster=2		# 1 for local computation and 2 for parallelize computation on a cluster
 
 echo "$trait_name" > trait_name.txt
 echo "$nb_snp_hap" > nb_snp_hap.txt
@@ -48,8 +48,8 @@ cp programs/compute_estimates_h0.R				estimates_h0/
 cd estimates_h0/
 	R -q --vanilla<get_data_trait_name.R
 	R -q --vanilla<get_data_incidence.R
-	R -q --vanilla<compute_k_matrix.R	
-	R -q --vanilla<compute_estimates_h0.R	
+	R -q --vanilla<compute_k_matrix.R
+	R -q --vanilla<compute_estimates_h0.R
 cd ../
 
 #-------------------------------------------------------------------------#
@@ -64,43 +64,43 @@ do
 	#3.1 creation of the directory for chromosome chromo_num_k to be analyzed #
 	#-------------------------------------------------------------------------#
 	mkdir genome_scan_chromo_num_$chromo_num_k
-	
+
 	# copy data into the directory for chromosome chromo_num_k
 	mv chromo_num_k.txt					genome_scan_chromo_num_$chromo_num_k
 	cp data_parameters/nb_snp_hap.txt			genome_scan_chromo_num_$chromo_num_k
 	cp data_parameters/nb_chromosomes.txt			genome_scan_chromo_num_$chromo_num_k
 	cp data_parameters/genotypes.txt			genome_scan_chromo_num_$chromo_num_k
 	cp data_parameters/phased_genotypes.txt			genome_scan_chromo_num_$chromo_num_k
-	cp data_parameters/physical_map.txt			genome_scan_chromo_num_$chromo_num_k 
-	
+	cp data_parameters/physical_map.txt			genome_scan_chromo_num_$chromo_num_k
+
 	# copy data and estimates for model under null hypothesis (h0) into directory for chromosome chromo_num_k
 	cp estimates_h0/phenotypes_trait_name.txt		genome_scan_chromo_num_$chromo_num_k
 	cp estimates_h0/x_matrix.txt				genome_scan_chromo_num_$chromo_num_k
 	cp estimates_h0/z_u_matrix.txt				genome_scan_chromo_num_$chromo_num_k
 	cp estimates_h0/k_matrix.txt				genome_scan_chromo_num_$chromo_num_k
 	cp estimates_h0/emmreml_h0				genome_scan_chromo_num_$chromo_num_k
-	
+
 	# copy programs into the directory for chromosome chromo_num_k
 	cp programs/get_data_chromo_num_k.R			genome_scan_chromo_num_$chromo_num_k
 	cp programs/ibs_haplotypes_window			genome_scan_chromo_num_$chromo_num_k
 	cp programs/compute_z_h_matrix				genome_scan_chromo_num_$chromo_num_k
 	cp programs/emmreml_rlrt.R				genome_scan_chromo_num_$chromo_num_k
-  	cp programs/scan_chromo_num_k.sh			genome_scan_chromo_num_$chromo_num_k  	
-  	
+  	cp programs/scan_chromo_num_k.sh			genome_scan_chromo_num_$chromo_num_k
+
 	# extract data associated to trait, fixed effects and compute Gram matrix (i.e. kernel matrix)
 	cd genome_scan_chromo_num_$chromo_num_k
 
-  	# perform genome scan by sliding window for chromosome $chromo_num_k 
+  	# perform genome scan by sliding window for chromosome $chromo_num_k
 	if [ "$local_or_cluster" -gt 1 ] ; then
 		# qsub -q normal.q -v scan_chromo_num_k.sh  # a cc2 queue
-		# sbatch scan_chromo_num_k.sh			
-		qsub -q workq scan_chromo_num_k.sh			
+		sbatch scan_chromo_num_k.sh
+		# qsub -q workq scan_chromo_num_k.sh
 	else
 		./scan_chromo_num_k.sh
 	fi
-   
+
 	# moving to the next directory "genome_scan_chromo_num_$chromo_num_k",
 	# i.e. moving up the directory tree
 	cd ../
-done  
+done
 

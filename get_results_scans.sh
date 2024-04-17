@@ -11,8 +11,8 @@ if [ ! -d results_genome_scan ]; then
 fi
 cd data_parameters/
 
-nb_chromosomes=$(cat "nb_chromosomes.txt")    
-nb_snp_hap=$(cat "nb_snp_hap.txt")    
+nb_chromosomes=$(cat "nb_chromosomes.txt")
+nb_snp_hap=$(cat "nb_snp_hap.txt")
 kernel_index=$(cat "kernel_index.txt")
 
 modify_signif_level=false	# true or false (note lower case)
@@ -33,7 +33,7 @@ cp physical_map.txt			../results_genome_scan
 cp phased_genotypes.txt			../results_genome_scan
 cp kernel_index.txt			../results_genome_scan
 cp signif_level.txt			../results_genome_scan
- 
+
 cd ../programs/
 cp get_results_scans.R			../results_genome_scan
 cp plot_nb_hap_scans.R			../results_genome_scan
@@ -62,19 +62,19 @@ if [ "$kernel_index" -gt 1 ] ; then
 	if [ "$nb_snp_hap" -gt 1 ] ; then
 
 		for chromo_num_k in $(seq $nb_chromosomes -1 1)
-		do	
+		do
 			if [ -d results_chromo_num_$chromo_num_k ]; then
 				rm -rf results_chromo_num_$chromo_num_k/*
 			else
 				mkdir results_chromo_num_$chromo_num_k
-			fi			
+			fi
 			mv flanking_markers_of_tested_positions_in_kb_with_rlrt_value_on_chromosome_$chromo_num_k*		results_chromo_num_$chromo_num_k
-			mv flanking_markers_of_tested_positions_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*	results_chromo_num_$chromo_num_k	
+			mv flanking_markers_of_tested_positions_in_kb_with_significant_rlrt_value_on_chromosome_$chromo_num_k*	results_chromo_num_$chromo_num_k
 			if ls significant_haplotypes_chromo_num_$chromo_num_k* 1> /dev/null 2>&1; then
 				mv significant_haplotypes_chromo_num_$chromo_num_k*						results_chromo_num_$chromo_num_k
 			fi
-			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
-			mv vect_nb_hap_window_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
+			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
+			mv vect_nb_hap_window_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
 			mv number_of_haplotypes_per_window_for_chromosome_$chromo_num_k*					results_chromo_num_$chromo_num_k
 			mv kernelized_haplotype_based_genome_scan_of_chromosome_$chromo_num_k*					results_chromo_num_$chromo_num_k
 		done
@@ -87,7 +87,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 		mv number_of_haplotypes_per_window_for_complete_genome_scan*							results_all_chromosomes
 		mv kernelized_haplotype_based_genome_scan_for_*									results_all_chromosomes
 		mv flanking_markers_of_tested_positions_with_statistics*							results_all_chromosomes
-		
+
 	else
 
 		for chromo_num_k in $(seq $nb_chromosomes -1 1)
@@ -102,7 +102,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 			if ls significant_snps_chromo_num_$chromo_num_k* 1> /dev/null 2>&1; then
 				mv significant_snps_chromo_num_$chromo_num_k*							results_chromo_num_$chromo_num_k
 			fi
-			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
+			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
 			mv kernelized_gwas_of_chromosome_$chromo_num_k*								results_chromo_num_$chromo_num_k
 		done
 
@@ -110,7 +110,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 			rm -rf results_all_chromosomes/*
 		else
 			mkdir results_all_chromosomes
-		fi                                              
+		fi
 		mv kernelized_gwas_for_*											results_all_chromosomes
 		mv markers_of_tested_positions_with_statistics.txt*								results_all_chromosomes
 		rm vect_nb_hap_window_chromo_num_*
@@ -118,7 +118,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 	fi
 
  else
- 
+
 	if [ "$nb_snp_hap" -gt 1 ] ; then
 
 		for chromo_num_k in $(seq $nb_chromosomes -1 1)
@@ -133,8 +133,8 @@ if [ "$kernel_index" -gt 1 ] ; then
 			if ls significant_haplotypes_chromo_num_$chromo_num_k* 1> /dev/null 2>&1; then
 				mv significant_haplotypes_chromo_num_$chromo_num_k*						results_chromo_num_$chromo_num_k
 			fi
-			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
-			mv vect_nb_hap_window_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
+			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
+			mv vect_nb_hap_window_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
 			mv number_of_haplotypes_per_window_for_chromosome_$chromo_num_k*					results_chromo_num_$chromo_num_k
 			mv haplotype_based_genome_scan_of_chromosome_$chromo_num_k*						results_chromo_num_$chromo_num_k
 		done
@@ -162,7 +162,7 @@ if [ "$kernel_index" -gt 1 ] ; then
 			if ls significant_snps_chromo_num_$chromo_num_k* 1> /dev/null 2>&1; then
 				mv significant_snps_chromo_num_$chromo_num_k*							results_chromo_num_$chromo_num_k
 			fi
-			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k 
+			mv vect_rlrt_value_chromo_num_$chromo_num_k*								results_chromo_num_$chromo_num_k
 			mv gwas_of_chromosome_$chromo_num_k*									results_chromo_num_$chromo_num_k
 		done
 
@@ -170,14 +170,14 @@ if [ "$kernel_index" -gt 1 ] ; then
 			rm -rf results_all_chromosomes/*
 		else
 			mkdir results_all_chromosomes
-		fi                                              
+		fi
 		mv gwas_for_*													results_all_chromosomes
 		mv markers_of_tested_positions_with_statistics.txt*								results_all_chromosomes
 		rm vect_nb_hap_window_chromo_num_*
 
-	fi    
+	fi
 
-fi    
+fi
 clear
 
 rm *.R
