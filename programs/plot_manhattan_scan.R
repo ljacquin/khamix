@@ -1,5 +1,7 @@
 library(ggplot2)
+library(plotly)
 library(data.table)
+library(htmlwidgets)
 
 #---------------------------#
 # read files and parameters #
@@ -46,20 +48,22 @@ if (nb_snp_hap == 1) {
     )
   }
 }
+
 # add a vector of position index for manhattan plot
-df_$Position_index_manhattan <- 1:nrow(df_)
+df_$index <- 1:nrow(df_)
+df_$Chr <- as.factor(df_$Chr)
 
 # to avoid extreme values, perform a smoothing
 p_value_threshold <- -log10(alpha)
 try(
   {
-    nonlinear_model <- nls(p_value ~ exp(-alpha * Restricted_LRT_value),
+    nonlinear_model <- nls(p_value ~ exp(-alpha * restricted_LRT_value),
       start = list(alpha = 1),
       data = df_
     )
     df_$p_value <- predict(nonlinear_model, newdata = df_)
     p_value_threshold <- predict(nonlinear_model,
-      newdata = data.frame(Restricted_LRT_value = rlrt_threshold)
+      newdata = data.frame(restricted_LRT_value = rlrt_threshold)
     )
   },
   silent = TRUE
@@ -72,16 +76,32 @@ if (kernel_index == 1) {
   if (nb_snp_hap == 1) {
     # get manhattan plot for genome scan
     p <- ggplot(df_, aes(
-      x = Position_index_manhattan,
-      y = -log10(p_value), color = factor(Chr)
+      x = index,
+      y = -log10(p_value),
+      color = Chr,
+      text = paste(
+        "-log10(p_value) : ", signif(-log10(p_value), 4), "<br>",
+        "MkID : ", MkID, "<br>",
+        "Position in Kb : ", pos_in_Kb, "<br>",
+        "Chromosome number : ", Chr
+      )
     )) +
       geom_point(size = 3) +
       geom_hline(
         yintercept = -log10(p_value_threshold),
         linetype = "dashed", color = "red"
       ) +
+      annotate("text",
+        y = -log10(p_value_threshold) + 0.2,
+        x = max(df_$index) - length(df_$index) / 2,
+        label = paste(
+          "-log10(p-value threshold) :",
+          signif(-log10(p_value_threshold), 4)
+        ),
+        color = "red", size = 4, fontface = "bold"
+      ) +
       labs(
-        x = "Position index", y = "-log10(p-value)",
+        x = "Index", y = "-log10(p-value)",
         title = paste0("GWAS for ", trait_name)
       ) +
       scale_color_discrete(name = "Chromosome") +
@@ -90,14 +110,12 @@ if (kernel_index == 1) {
         hjust = 0.5,
         size = 20
       ))
-    ggsave(
-      paste0(
-        "gwas_for_", trait_name,
-        "_manhattan_plot.pdf"
-      ),
-      plot = p, width = 10, height = 8, dpi = 300
-    )
-
+    # convert ggplot to ggplotly and save plot
+    p <- ggplotly(p, tooltip = "text")
+    saveWidget(p, file = paste0(
+      "gwas_for_", trait_name,
+      "_manhattan_plot.html"
+    ))
     # write results for all chromosomes
     write.table(
       df_,
@@ -108,17 +126,34 @@ if (kernel_index == 1) {
   } else {
     # get manhattan plot for genome scan
     p <- ggplot(df_, aes(
-      x = Position_index_manhattan,
-      y = -log10(p_value), color = factor(Chr)
+      x = index,
+      y = -log10(p_value),
+      color = Chr,
+      text = paste(
+        "-log10(p_value) : ", signif(-log10(p_value), 4), "<br>",
+        "Left flanking MkID to window center : ", left_flank_MkID_to_center, "<br>",
+        "Right flanking MkID to window center : ", right_flank_MkID_to_center, "<br>",
+        "Average position in Kb at window center : ", average_pos_in_Kb_at_window_center, "<br>",
+        "Chromosome number : ", Chr
+      )
     )) +
       geom_point(size = 3) +
       geom_hline(
         yintercept = -log10(p_value_threshold),
         linetype = "dashed", color = "red"
       ) +
+      annotate("text",
+        y = -log10(p_value_threshold) + 0.2,
+        x = max(df_$index) - length(df_$index) / 2,
+        label = paste("-log10(p-value threshold) :", signif(-log10(p_value_threshold), 4)),
+        color = "red", size = 4, fontface = "bold"
+      ) +
       labs(
-        x = "Position index", y = "-log10(p-value)",
-        title = paste0("Haplotype-based scan for ", trait_name)
+        x = "Index", y = "-log10(p-value)",
+        title = paste0(
+          "Haplotype-based scan for ",
+          trait_name
+        )
       ) +
       scale_color_discrete(name = "Chromosome") +
       coord_cartesian(ylim = c(0, max_y)) +
@@ -126,13 +161,12 @@ if (kernel_index == 1) {
         hjust = 0.5,
         size = 20
       ))
-    ggsave(
-      paste0(
-        "haplotype_based_genome_scan_for_",
-        trait_name, "_manhattan_plot.pdf"
-      ),
-      plot = p, width = 10, height = 8, dpi = 300
-    )
+    # convert ggplot to ggplotly and save plot
+    p <- ggplotly(p, tooltip = "text")
+    saveWidget(p, file = paste0(
+      "haplotype_based_genome_scan_for_",
+      trait_name, "_manhattan_plot.html"
+    ))
     # write results for all chromosomes
     write.table(
       df_,
@@ -146,16 +180,32 @@ if (kernel_index == 1) {
   if (nb_snp_hap == 1) {
     # get manhattan plot for genome scan
     p <- ggplot(df_, aes(
-      x = Position_index_manhattan,
-      y = -log10(p_value), color = factor(Chr)
+      x = index,
+      y = -log10(p_value),
+      color = Chr,
+      text = paste(
+        "-log10(p_value) : ", signif(-log10(p_value), 4), "<br>",
+        "MkID : ", MkID, "<br>",
+        "Position in Kb : ", pos_in_Kb, "<br>",
+        "Chromosome number : ", Chr
+      )
     )) +
       geom_point(size = 3) +
       geom_hline(
         yintercept = -log10(p_value_threshold),
         linetype = "dashed", color = "red"
       ) +
+      annotate("text",
+        y = -log10(p_value_threshold) + 0.2,
+        x = max(df_$index) - length(df_$index) / 2,
+        label = paste(
+          "-log10(p-value threshold) :",
+          signif(-log10(p_value_threshold), 4)
+        ),
+        color = "red", size = 4, fontface = "bold"
+      ) +
       labs(
-        x = "Position index", y = "-log10(p-value)",
+        x = "Index", y = "-log10(p-value)",
         title = paste0("Kernelized GWAS for ", trait_name)
       ) +
       scale_color_discrete(name = "Chromosome") +
@@ -164,13 +214,12 @@ if (kernel_index == 1) {
         hjust = 0.5,
         size = 20
       ))
-    ggsave(
-      paste0(
-        "kernelized_gwas_for_", trait_name,
-        "_manhattan_plot.pdf"
-      ),
-      plot = p, width = 10, height = 8, dpi = 300
-    )
+    # convert ggplot to ggplotly and save plot
+    p <- ggplotly(p, tooltip = "text")
+    saveWidget(p, file = paste0(
+      "kernelized_gwas_for_", trait_name,
+      "_manhattan_plot.html"
+    ))
     # write results for all chromosomes
     write.table(
       df_,
@@ -181,16 +230,30 @@ if (kernel_index == 1) {
   } else {
     # get manhattan plot for genome scan
     p <- ggplot(df_, aes(
-      x = Position_index_manhattan,
-      y = -log10(p_value), color = factor(Chr)
+      x = index,
+      y = -log10(p_value),
+      color = Chr,
+      text = paste(
+        "-log10(p_value) : ", signif(-log10(p_value), 4), "<br>",
+        "Left flanking MkID to window center : ", left_flank_MkID_to_center, "<br>",
+        "Right flanking MkID to window center : ", right_flank_MkID_to_center, "<br>",
+        "Average position in Kb at window center : ", average_pos_in_Kb_at_window_center, "<br>",
+        "Chromosome number : ", Chr
+      )
     )) +
       geom_point(size = 3) +
       geom_hline(
         yintercept = -log10(p_value_threshold),
         linetype = "dashed", color = "red"
       ) +
+      annotate("text",
+        y = -log10(p_value_threshold) + 0.2,
+        x = max(df_$index) - length(df_$index) / 2,
+        label = paste("-log10(p-value threshold) :", signif(-log10(p_value_threshold), 4)),
+        color = "red", size = 4, fontface = "bold"
+      ) +
       labs(
-        x = "Position index", y = "-log10(p-value)",
+        x = "Index", y = "-log10(p-value)",
         title = paste0(
           "Kernelized haplotype-based scan for ",
           trait_name
@@ -202,13 +265,12 @@ if (kernel_index == 1) {
         hjust = 0.5,
         size = 20
       ))
-    ggsave(
-      paste0(
-        "kernelized_haplotype_based_genome_scan_for_",
-        trait_name, "_manhattan_plot.pdf"
-      ),
-      plot = p, width = 10, height = 8, dpi = 300
-    )
+    # convert ggplot to ggplotly and save plot
+    p <- ggplotly(p, tooltip = "text")
+    saveWidget(p, file = paste0(
+      "kernelized_haplotype_based_genome_scan_for_",
+      trait_name, "_manhattan_plot.html"
+    ))
     # write results for all chromosomes
     write.table(
       df_,

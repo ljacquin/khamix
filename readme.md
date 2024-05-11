@@ -1,4 +1,5 @@
 [<img src="img/khamix.png"/>]()
+![](img/khamix_haplo_scan.gif)
 
 # Kernelized HAplotype-based MIXed model association mapping (KHAMIX) 
 
@@ -50,6 +51,11 @@ where :
 * Given that ```R ≥ 4.1.2``` is already installed, use the following command to install ```khamix``` required ```R``` libraries : 
 
   * ```R -q --vanilla<requirements.R```
+  <p> </p>
+
+* If ```pandoc``` is not already installed on your ```Unix/Linux``` system, you can install it by executing the following command : 
+
+  *  ```sudo apt install pandoc```
   <p> </p>
 
 * Within the ```khamix``` folder, execute the following commands to make scripts and programs executable :

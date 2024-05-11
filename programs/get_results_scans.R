@@ -80,14 +80,14 @@ if (kernel_index == 1) {
       ))
       colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "MkID",
-        "Pos_in_Kb",
-        "Restricted_LRT_value",
+        "pos_in_Kb",
+        "restricted_LRT_value",
         "p_value",
         "Chr"
       )
       markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
-      markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
-      markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
+      markers_in_Kb_rlrt_value_chromo_num_k$pos_in_Kb <- position_kb_chrom_num
+      markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value <- rlrt_value
       markers_in_Kb_rlrt_value_chromo_num_k$p_value <- sapply(
         rlrt_value,
         function(x) get_p_value(distrib_ = simulated_rlrt_distribution, x)
@@ -104,10 +104,10 @@ if (kernel_index == 1) {
         ] <- 1e-16
       }
       idx_zero_rlrt_values <- which(
-        markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value == 0
+        markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value == 0
       )
       if (length(idx_zero_rlrt_values) > 0) {
-        markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[
+        markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value[
           idx_zero_rlrt_values
         ] <- 1e-16
       }
@@ -124,7 +124,7 @@ if (kernel_index == 1) {
       )
       write.table(
         markers_in_Kb_rlrt_value_chromo_num_k[
-          markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value >=
+          markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value >=
             rlrt_threshold,
         ],
         file = paste0(
@@ -219,10 +219,10 @@ if (kernel_index == 1) {
         0, length(rlrt_value), 9
       ))
       colnames(flank_markers_in_Kb_rlrt_value_chromo_num_k) <- c(
-        "left_flank_MkID_to_center", "Pos_in_Kb_left_flank_MkID",
-        "right_flank_MkID_to_center", "Pos_in_Kb_right_flank_MkID",
-        "average_position_in_Kb_at_window_center",
-        "Restricted_LRT_value", "p_value", "Window_starting_index",
+        "left_flank_MkID_to_center", "pos_in_Kb_left_flank_MkID",
+        "right_flank_MkID_to_center", "pos_in_Kb_right_flank_MkID",
+        "average_pos_in_Kb_at_window_center",
+        "restricted_LRT_value", "p_value", "Window_starting_index",
         "Chr"
       )
 
@@ -234,14 +234,14 @@ if (kernel_index == 1) {
           position_kb_chrom_num[shift_quantity + k]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$left_flank_MkID_to_center[p] <- as.character(marker_id_chrom[shift_quantity + k])
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb_left_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + k]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$pos_in_Kb_left_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + k]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$right_flank_MkID_to_center[p] <- as.character(marker_id_chrom[shift_quantity + (k + 1)])
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb_right_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + (k + 1)]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$pos_in_Kb_right_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + (k + 1)]
 
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[p] <- rlrt_value[p]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value[p] <- rlrt_value[p]
 
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$average_position_in_Kb_at_window_center[p] <- scanned_position_kb[p]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$average_pos_in_Kb_at_window_center[p] <- scanned_position_kb[p]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$p_value[p] <- get_p_value(
           distrib_ = simulated_rlrt_distribution,
@@ -262,10 +262,10 @@ if (kernel_index == 1) {
         ] <- 1e-16
       }
       idx_zero_rlrt_values <- which(
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value == 0
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value == 0
       )
       if (length(idx_zero_rlrt_values) > 0) {
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value[
           idx_zero_rlrt_values
         ] <- 1e-16
       }
@@ -283,7 +283,7 @@ if (kernel_index == 1) {
 
       write.table(
         flank_markers_in_Kb_rlrt_value_chromo_num_k[
-          flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value >=
+          flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value >=
             rlrt_threshold,
         ],
         file = paste0(
@@ -380,14 +380,14 @@ if (kernel_index == 1) {
       ))
       colnames(markers_in_Kb_rlrt_value_chromo_num_k) <- c(
         "MkID",
-        "Pos_in_Kb",
-        "Restricted_LRT_value",
+        "pos_in_Kb",
+        "restricted_LRT_value",
         "p_value",
         "Chr"
       )
       markers_in_Kb_rlrt_value_chromo_num_k$MkID <- marker_id_chrom
-      markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb <- position_kb_chrom_num
-      markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value <- rlrt_value
+      markers_in_Kb_rlrt_value_chromo_num_k$pos_in_Kb <- position_kb_chrom_num
+      markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value <- rlrt_value
       markers_in_Kb_rlrt_value_chromo_num_k$p_value <- sapply(
         rlrt_value,
         function(x) get_p_value(distrib_ = simulated_rlrt_distribution, x)
@@ -404,10 +404,10 @@ if (kernel_index == 1) {
         ] <- 1e-16
       }
       idx_zero_rlrt_values <- which(
-        markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value == 0
+        markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value == 0
       )
       if (length(idx_zero_rlrt_values) > 0) {
-        markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[
+        markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value[
           idx_zero_rlrt_values
         ] <- 1e-16
       }
@@ -423,7 +423,7 @@ if (kernel_index == 1) {
       )
       write.table(
         markers_in_Kb_rlrt_value_chromo_num_k[
-          markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value >=
+          markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value >=
             rlrt_threshold,
         ],
         file = paste0(
@@ -518,10 +518,10 @@ if (kernel_index == 1) {
         0, length(rlrt_value), 9
       ))
       colnames(flank_markers_in_Kb_rlrt_value_chromo_num_k) <- c(
-        "left_flank_MkID_to_center", "Pos_in_Kb_left_flank_MkID",
-        "right_flank_MkID_to_center", "Pos_in_Kb_right_flank_MkID",
-        "average_position_in_Kb_at_window_center",
-        "Restricted_LRT_value", "p_value", "Window_starting_index",
+        "left_flank_MkID_to_center", "pos_in_Kb_left_flank_MkID",
+        "right_flank_MkID_to_center", "pos_in_Kb_right_flank_MkID",
+        "average_pos_in_Kb_at_window_center",
+        "restricted_LRT_value", "p_value", "Window_starting_index",
         "Chr"
       )
 
@@ -533,14 +533,14 @@ if (kernel_index == 1) {
           position_kb_chrom_num[shift_quantity + k]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$left_flank_MkID_to_center[p] <- as.character(marker_id_chrom[shift_quantity + k])
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb_left_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + k]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$pos_in_Kb_left_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + k]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$right_flank_MkID_to_center[p] <- as.character(marker_id_chrom[shift_quantity + (k + 1)])
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Pos_in_Kb_right_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + (k + 1)]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$pos_in_Kb_right_flank_MkID[p] <- position_kb_chrom_num[shift_quantity + (k + 1)]
 
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[p] <- rlrt_value[p]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value[p] <- rlrt_value[p]
 
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$average_position_in_Kb_at_window_center[p] <- scanned_position_kb[p]
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$average_pos_in_Kb_at_window_center[p] <- scanned_position_kb[p]
 
         flank_markers_in_Kb_rlrt_value_chromo_num_k$p_value[p] <- get_p_value(
           distrib_ = simulated_rlrt_distribution,
@@ -561,10 +561,10 @@ if (kernel_index == 1) {
         ] <- 1e-16
       }
       idx_zero_rlrt_values <- which(
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value == 0
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value == 0
       )
       if (length(idx_zero_rlrt_values) > 0) {
-        flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value[
+        flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value[
           idx_zero_rlrt_values
         ] <- 1e-16
       }
@@ -583,7 +583,7 @@ if (kernel_index == 1) {
 
       write.table(
         flank_markers_in_Kb_rlrt_value_chromo_num_k[
-          flank_markers_in_Kb_rlrt_value_chromo_num_k$Restricted_LRT_value >=
+          flank_markers_in_Kb_rlrt_value_chromo_num_k$restricted_LRT_value >=
             rlrt_threshold,
         ],
         file = paste0(
