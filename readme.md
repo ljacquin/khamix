@@ -1,5 +1,4 @@
 [<img src="img/khamix.png"/>]()
-![](img/khamix_haplo_scan.gif)
 
 # Kernelized HAplotype-based MIXed model association mapping (KHAMIX) 
 
@@ -95,6 +94,14 @@ where :
   ⚠️ The significance level of results can be modified through the ```get_results_scans.sh``` script, as many times as necessary, before each run of the command ```./get_results_scans.sh```. To do so, change the ```modify_signif_level``` and ```new_signif_level``` parameters within the script. Keep in mind that the ```results_genome_scan``` folder will be cleared each time, so make sure to save previous results if necessary.
 
 * Final note: The ```khamix``` folder can be duplicated multiple times, with each copy renamed, to analyze multiple traits in parallel. For example, folders like ```khamix_LLGTH```, ```khamix_NBL```, ```khamix_TIL```, etc., can be created from the provided data set.
+
+## Example of results :
+
+The gif and captured image below show an example of results, for ```LLGTH``` using the example dataset, that one might expect with ```khamix```:
+
+![](img/khamix_haplotype_scan_llgth_example.gif)
+
+[<img src="img/khamix_result_data_llgth_example.png"/>]()
 
 ## References :
 
