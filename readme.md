@@ -103,25 +103,25 @@ The gif and captured images below show result examples, for ```LLGTH``` using th
 
 ![](img/haplotype_association_analysis_llgth_example.gif)
 
-[<img src="img/haplotype_association_analysis_data_llgth_example"/>]()
+[<img src="img/haplotype_association_analysis_data_llgth_example.png"/>]()
 
 ### Single-marker association analysis (i.e. GWAS):
 
 ![](img/single_marker_association_analysis_llgth_example.gif)
 
-[<img src="img/single_marker_association_analysis_llgth_example"/>]()
+[<img src="img/single_marker_association_analysis_llgth_example.png"/>]()
 
 ### Kernelized haplotype association analysis:
 
 ![](img/kernelized_haplotype_association_analysis_llgth_example.gif)
 
-[<img src="img/kernelized_haplotype_association_analysis_data_llgth_example"/>]()
+[<img src="img/kernelized_haplotype_association_analysis_data_llgth_example.png"/>]()
 
 ### Kernelized single-marker association analysis (i.e. Kernelized GWAS):
 
 ![](img/kernelized_single_marker_association_analysis_llgth_example.gif)
 
-[<img src="img/kernelized_single_marker_association_analysis_llgth_example"/>]()
+[<img src="img/kernelized_single_marker_association_analysis_llgth_example.png"/>]()
 
 ## References :
 
