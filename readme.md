@@ -16,7 +16,7 @@ where :
   * $Y$ represents the vector of $n$ measured phenotypes for the analyzed trait.
   * $\beta$ denotes the vector of fixed effects.
   * $h$ represents the vector of random effects of haplotypes following a multivariate normal distribution, i.e. $h \sim N_{n_h}(0,H_{\sigma^2_{h}}) $, where $H=I_{n_h}$ is the covariance matrix describing the identity-by-state (IBS) status between haplotypes.
-  * $u$ denotes the vector of random polygenic effects following a multivariate normal distribution, i.e. $u \sim N_{n}(0,K_{\sigma^2_{K}})$, where $K$ is the genomic covariance matrix also known as the Gram matrix. $K$ can be constructed using either the VanRaden (2008) method which represents a linear additive kernel, or a Gaussian kernel which is a non-linear universal approximator capable of modeling epistatic effects (Jacquin $\textit{et al.}$, 2016).
+  * $u$ denotes the vector of random polygenic effects following a multivariate normal distribution, i.e. $u \sim N_{n}(0,K_{\sigma^2_{K}})$, where $K$ is the genomic covariance matrix also known as the Gram matrix. $K$ can be constructed using either the VanRaden (2008) method which represents a linear additive kernel, or a Gaussian kernel which is a non-linear universal approximator capable of modeling additive and epistatic effects (Jacquin $\textit{et al.}$, 2016).
   * $X$, $Z_h$, and $Z_u$ represent the design matrices that relate fixed and random effects to the measured phenotypes.
   * $\varepsilon$ denotes the vector of residuals.
   <p> </p>
@@ -95,13 +95,33 @@ where :
 
 * Final note: The ```khamix``` folder can be duplicated multiple times, with each copy renamed, to analyze multiple traits in parallel. For example, folders like ```khamix_LLGTH```, ```khamix_NBL```, ```khamix_TIL```, etc., can be created from the provided data set.
 
-## Example of results :
+## Result examples :
 
-The gif and captured image below show an example of results, for ```LLGTH``` using the example dataset, that one might expect with ```khamix```:
+The gif and captured images below show result examples, for ```LLGTH``` using the example dataset, that one might expect with ```khamix```:
 
-![](img/khamix_haplotype_scan_llgth_example.gif)
+### Haplotype association analysis:
 
-[<img src="img/khamix_result_data_llgth_example.png"/>]()
+![](img/haplotype_association_analysis_llgth_example.gif)
+
+[<img src="img/haplotype_association_analysis_data_llgth_example"/>]()
+
+### Single-marker association analysis (i.e. GWAS):
+
+![](img/single_marker_association_analysis_llgth_example.gif)
+
+[<img src="img/single_marker_association_analysis_llgth_example"/>]()
+
+### Kernelized haplotype association analysis:
+
+![](img/kernelized_haplotype_association_analysis_llgth_example.gif)
+
+[<img src="img/kernelized_haplotype_association_analysis_data_llgth_example"/>]()
+
+### Kernelized single-marker association analysis (i.e. Kernelized GWAS):
+
+![](img/kernelized_single_marker_association_analysis_llgth_example.gif)
+
+[<img src="img/kernelized_single_marker_association_analysis_llgth_example"/>]()
 
 ## References :
 
