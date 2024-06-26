@@ -1,13 +1,29 @@
+library(pandoc)
 library(data.table)
+# library(rstudioapi)
+# setwd(dirname(getActiveDocumentContext()$path))
 
 #---------------------------#
 # read files and parameters #
 #---------------------------#
 trait_name <- as.character(readLines("trait_name.txt"))
+trait_name <- "BLUP_AUDPC_reel_mono_souche"
+
 nb_chromosomes <- scan("nb_chromosomes.txt")
 nb_snp_hap <- scan("nb_snp_hap.txt")
 kernel_index <- scan("kernel_index.txt")
-alpha <- as.numeric(scan("signif_level.txt"))
+alpha <- as.numeric(scan("alpha_prime.txt"))
+vect_all_rlrt_val_ <- as.numeric(unlist(do.call(
+  rbind,
+  lapply(
+    list.files(
+      pattern = "vect_rlrt_value_chromo_num_"
+    ),
+    read.table,
+    header = FALSE
+  )
+)))
+
 
 # define shift quantity
 shift_quantity <- (floor(nb_snp_hap / 2) - 1)
@@ -40,12 +56,52 @@ phased_genotype_matrix <- phased_genotype_matrix[, -match(
 )]
 phased_genotype_matrix <- t(phased_genotype_matrix)
 
+# likelihood function for sum of chisq distribution
+log_likelihood <- function(params, data) {
+  df1 <- params[1]
+  df2 <- params[2]
+  epsilon <- 1e-7 # add a very small epsilon for numerical stability
+  -sum(log(0.5 * dchisq(data + epsilon, df = df1) +
+    0.5 * dchisq(data + epsilon, df = df2)))
+}
+
+# ml estimation for sum of chisq distribution
+estimate_parameters <- function(data) {
+  initial_params <- c(1, 2) # initial guesses
+  result <- optim(
+    par = initial_params,
+    fn = log_likelihood,
+    data = data,
+    method = "L-BFGS-B",
+    lower = c(0.1, 0.1), # inf limits for degrees of freedom
+    upper = c(Inf, Inf) # sup limits for degrees of freedom
+  )
+  return(result$par)
+}
+
+# estimate distribution of sum of chisq by ml
+estimated_params <- estimate_parameters(
+  sort(vect_all_rlrt_val_,
+    decreasing = F
+  )
+)
 
 # set rlrt threshold
 set.seed(123)
-simulated_rlrt_distribution <- 0.5 * (sort(rchisq(1e6, df = 1, ncp = 0))
-+ sort(rchisq(1e6, df = 2, ncp = 0)))
+n_ <- length(vect_all_rlrt_val_)
+simulated_rlrt_distribution <- 0.5 * (
+  sort(rchisq(n_, df = estimated_params[1], ncp = 0))
+  + sort(rchisq(n_, df = estimated_params[2], ncp = 0))
+)
 rlrt_threshold <- quantile(simulated_rlrt_distribution, 1 - alpha)
+
+# save rlrt_threshold for mahattan plot
+write.table(rlrt_threshold,
+  file = "rlrt_threshold.txt", sep = " ",
+  col.names = FALSE, row.names = FALSE,
+  quote = FALSE
+)
+estimated_params <- signif(estimated_params, 2)
 
 # function to get p-values
 get_p_value <- function(distrib_, test_statistic_value_) {
@@ -111,7 +167,6 @@ if (kernel_index == 1) {
           idx_zero_rlrt_values
         ] <- 1e-16
       }
-
 
       write.table(markers_in_Kb_rlrt_value_chromo_num_k,
         file = paste0(
@@ -192,6 +247,19 @@ if (kernel_index == 1) {
         }
       }
     }
+    dev.off()
+    pdf(paste0("qq_plot_gwas_for_", trait_name, ".pdf"))
+    plot(sort(simulated_rlrt_distribution),
+      sort(vect_all_rlrt_val_),
+      main = paste0("QQ-plot associated to GWAS \n for ", trait_name),
+      xlab = bquote(
+        "RLRT estimated theoretical distribution under " ~ H[0] ~ ": " ~
+          frac(1, 2) * (chi[.(estimated_params[1])]^2 +
+                          chi[.(estimated_params[2])]^2)
+      ),
+      ylab = "RLRT observed values"
+    )
+    abline(a = 0, b = 1, col = "red", lwd = 2)
     dev.off()
   } else {
     pdf(paste0(
@@ -355,6 +423,22 @@ if (kernel_index == 1) {
       }
     }
     dev.off()
+    pdf(paste0("qq_plot_haplotype_based_scan_for_", trait_name, ".pdf"))
+    plot(sort(simulated_rlrt_distribution),
+      sort(vect_all_rlrt_val_),
+      main = paste0(
+        "QQ-plot associated to haplotype based scan \n for ",
+        trait_name
+      ),
+      xlab = bquote(
+        "RLRT estimated theoretical distribution under " ~ H[0] ~ ": " ~
+          frac(1, 2) * (chi[.(estimated_params[1])]^2 +
+            chi[.(estimated_params[2])]^2)
+      ),
+      ylab = "RLRT observed values"
+    )
+    abline(a = 0, b = 1, col = "red", lwd = 2)
+    dev.off()
   }
 } else {
   # ----------------#
@@ -492,6 +576,22 @@ if (kernel_index == 1) {
       }
     }
     dev.off()
+    pdf(paste0("qq_plot_kernelized_gwas_for_", trait_name, ".pdf"))
+    plot(sort(simulated_rlrt_distribution),
+      sort(vect_all_rlrt_val_),
+      main = paste0(
+        "QQ-plot associated to kernelized GWAS \n for ",
+        trait_name
+      ),
+      xlab = bquote(
+        "RLRT estimated theoretical distribution under " ~ H[0] ~ ": " ~
+          frac(1, 2) * (chi[.(estimated_params[1])]^2 +
+                          chi[.(estimated_params[2])]^2)
+      ),
+      ylab = "RLRT observed values"
+    )
+    abline(a = 0, b = 1, col = "red", lwd = 2)
+    dev.off()
   } else {
     pdf(paste0(
       "kernelized_haplotype_based_genome_scan_for_",
@@ -568,7 +668,6 @@ if (kernel_index == 1) {
           idx_zero_rlrt_values
         ] <- 1e-16
       }
-
 
       write.table(
         flank_markers_in_Kb_rlrt_value_chromo_num_k,
@@ -654,6 +753,25 @@ if (kernel_index == 1) {
         }
       }
     }
+    dev.off()
+    pdf(paste0(
+      "qq_plot_kernelized_haplotype_based_scan_for_",
+      trait_name, ".pdf"
+    ))
+    plot(sort(simulated_rlrt_distribution),
+      sort(vect_all_rlrt_val_),
+      main = paste0(
+        "QQ-plot associated to kernelized haplotype based scan \n for ",
+        trait_name
+      ),
+      xlab = bquote(
+        "RLRT estimated theoretical distribution under " ~ H[0] ~ ": " ~
+          frac(1, 2) * (chi[.(estimated_params[1])]^2 +
+                          chi[.(estimated_params[2])]^2)
+      ),
+      ylab = "RLRT observed values"
+    )
+    abline(a = 0, b = 1, col = "red", lwd = 2)
     dev.off()
   }
 }

@@ -8,9 +8,9 @@
 #--------------------------------------------------------------------------#
 #1. setting haplotype size, in number of markers, and trait to be analyzed #
 #--------------------------------------------------------------------------#
-trait_name="LLGTH"
+trait_name="BLUP_AUDPC_reel"
 nb_snp_hap=6
-nb_chromosomes=12		# total number of chromosomes for the analyzed data set
+nb_chromosomes=17		# total number of chromosomes for the analyzed data set
 kernel_index=1			# 1 for VanRaden linear kernel and 2 for Gaussian kernel (i.e. RBF)
 signif_level=0.01		# significance level for the restricted likelihood ratio test (RLRT)
 local_or_cluster=2		# 1 for local computation and 2 for parallelize computation on a cluster
@@ -38,6 +38,9 @@ if [ -f data_parameters/incidence_fixed_effects.txt ] ; then
 fi
 if [ -f data_parameters/incidence_polygenic_effects.txt ] ; then
     cp data_parameters/incidence_polygenic_effects.txt	estimates_h0/
+fi
+if [ -f data_parameters/k_matrix.txt ] ; then
+    cp data_parameters/k_matrix.txt  estimates_h0/
 fi
 cp data_parameters/kernel_index.txt				estimates_h0/
 cp data_parameters/genotypes.txt				estimates_h0/
