@@ -8,7 +8,7 @@
 #--------------------------------------------------------------------------#
 #1. setting haplotype size, in number of markers, and trait to be analyzed #
 #--------------------------------------------------------------------------#
-trait_name="BLUP_AUDPC_reel"
+trait_name="LLGTH"
 nb_snp_hap=6
 nb_chromosomes=17		# total number of chromosomes for the analyzed data set
 kernel_index=1			# 1 for VanRaden linear kernel and 2 for Gaussian kernel (i.e. RBF)
