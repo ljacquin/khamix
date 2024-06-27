@@ -1,3 +1,4 @@
+library(pandoc)
 library(ggplot2)
 library(plotly)
 library(data.table)
@@ -7,16 +8,13 @@ library(htmlwidgets)
 # read files and parameters #
 #---------------------------#
 trait_name <- as.character(readLines("trait_name.txt"))
+trait_name <- 'BLUP_AUDPC_reel_mono_souche'
+
 nb_chromosomes <- scan("nb_chromosomes.txt")
 nb_snp_hap <- scan("nb_snp_hap.txt")
 kernel_index <- scan("kernel_index.txt")
-alpha <- as.numeric(scan("signif_level.txt"))
-
-# set rlrt threshold
-set.seed(123)
-simulated_rlrt_distribution <- 0.5 * (sort(rchisq(1e6, df = 1, ncp = 0))
-+ sort(rchisq(1e6, df = 2, ncp = 0)))
-rlrt_threshold <- quantile(simulated_rlrt_distribution, 1 - alpha)
+alpha <- as.numeric(scan("alpha_prime.txt"))
+rlrt_threshold <- scan("rlrt_threshold.txt")
 
 # get data according to the defined analyzed case
 if (nb_snp_hap == 1) {
@@ -54,20 +52,7 @@ df_$index <- 1:nrow(df_)
 df_$Chr <- as.factor(df_$Chr)
 
 # to avoid extreme values, perform a smoothing
-p_value_threshold <- -log10(alpha)
-try(
-  {
-    nonlinear_model <- nls(p_value ~ exp(-alpha * restricted_LRT_value),
-      start = list(alpha = 1),
-      data = df_
-    )
-    df_$p_value <- predict(nonlinear_model, newdata = df_)
-    p_value_threshold <- predict(nonlinear_model,
-      newdata = data.frame(restricted_LRT_value = rlrt_threshold)
-    )
-  },
-  silent = TRUE
-)
+minus_log_p_val_thresh <- -log10(alpha)
 max_y <- 1.5 * max(-log10(df_$p_value))
 
 if (kernel_index == 1) {
@@ -88,15 +73,15 @@ if (kernel_index == 1) {
     )) +
       geom_point(size = 3) +
       geom_hline(
-        yintercept = -log10(p_value_threshold),
+        yintercept = minus_log_p_val_thresh,
         linetype = "dashed", color = "red"
       ) +
       annotate("text",
-        y = -log10(p_value_threshold) + 0.2,
+        y = minus_log_p_val_thresh + 0.2,
         x = max(df_$index) - length(df_$index) / 2,
         label = paste(
           "-log10(p-value threshold) :",
-          signif(-log10(p_value_threshold), 4)
+          signif(minus_log_p_val_thresh, 2)
         ),
         color = "red", size = 4, fontface = "bold"
       ) +
@@ -105,11 +90,26 @@ if (kernel_index == 1) {
         title = paste0("GWAS for ", trait_name)
       ) +
       scale_color_discrete(name = "Chromosome") +
-      coord_cartesian(ylim = c(0, max_y)) +
+      scale_y_continuous(
+        limits = c(0.1, max_y),
+        expand = c(0, 0)
+      ) +
       theme(plot.title = element_text(
         hjust = 0.5,
         size = 20
       ))
+    # save to ggplot format
+    ggsave(
+      filename =
+        paste0(
+          "gwas_for_", trait_name,
+          "_manhattan_plot.png"
+        ),
+      width = 20,
+      height = 8,
+      limitsize = F,
+      plot = p
+    )
     # convert ggplot to ggplotly and save plot
     p <- ggplotly(p, tooltip = "text")
     saveWidget(p, file = paste0(
@@ -139,13 +139,13 @@ if (kernel_index == 1) {
     )) +
       geom_point(size = 3) +
       geom_hline(
-        yintercept = -log10(p_value_threshold),
+        yintercept = minus_log_p_val_thresh,
         linetype = "dashed", color = "red"
       ) +
       annotate("text",
-        y = -log10(p_value_threshold) + 0.2,
+        y = minus_log_p_val_thresh + 0.2,
         x = max(df_$index) - length(df_$index) / 2,
-        label = paste("-log10(p-value threshold) :", signif(-log10(p_value_threshold), 4)),
+        label = paste("-log10(p-value threshold) :", signif(minus_log_p_val_thresh, 2)),
         color = "red", size = 4, fontface = "bold"
       ) +
       labs(
@@ -156,11 +156,26 @@ if (kernel_index == 1) {
         )
       ) +
       scale_color_discrete(name = "Chromosome") +
-      coord_cartesian(ylim = c(0, max_y)) +
+      scale_y_continuous(
+        limits = c(0.1, max_y),
+        expand = c(0, 0)
+      ) + 
       theme(plot.title = element_text(
         hjust = 0.5,
         size = 20
       ))
+    # save to ggplot format
+    ggsave(
+      filename =
+        paste0(
+          "haplotype_based_genome_scan_for_",
+          trait_name, "_manhattan_plot.png"
+        ),
+      width = 20,
+      height = 8,
+      limitsize = F,
+      plot = p
+    )
     # convert ggplot to ggplotly and save plot
     p <- ggplotly(p, tooltip = "text")
     saveWidget(p, file = paste0(
@@ -192,15 +207,15 @@ if (kernel_index == 1) {
     )) +
       geom_point(size = 3) +
       geom_hline(
-        yintercept = -log10(p_value_threshold),
+        yintercept = minus_log_p_val_thresh,
         linetype = "dashed", color = "red"
       ) +
       annotate("text",
-        y = -log10(p_value_threshold) + 0.2,
+        y = minus_log_p_val_thresh + 0.2,
         x = max(df_$index) - length(df_$index) / 2,
         label = paste(
           "-log10(p-value threshold) :",
-          signif(-log10(p_value_threshold), 4)
+          signif(minus_log_p_val_thresh, 2)
         ),
         color = "red", size = 4, fontface = "bold"
       ) +
@@ -209,11 +224,26 @@ if (kernel_index == 1) {
         title = paste0("Kernelized GWAS for ", trait_name)
       ) +
       scale_color_discrete(name = "Chromosome") +
-      coord_cartesian(ylim = c(0, max_y)) +
+      scale_y_continuous(
+        limits = c(0.1, max_y),
+        expand = c(0, 0)
+      ) +
       theme(plot.title = element_text(
         hjust = 0.5,
         size = 20
       ))
+    # save to ggplot format
+    ggsave(
+      filename =
+        paste0(
+          "kernelized_gwas_for_",
+          trait_name, "_manhattan_plot.png"
+        ),
+      width = 20,
+      height = 8,
+      limitsize = F,
+      plot = p
+    )
     # convert ggplot to ggplotly and save plot
     p <- ggplotly(p, tooltip = "text")
     saveWidget(p, file = paste0(
@@ -243,13 +273,13 @@ if (kernel_index == 1) {
     )) +
       geom_point(size = 3) +
       geom_hline(
-        yintercept = -log10(p_value_threshold),
+        yintercept = minus_log_p_val_thresh,
         linetype = "dashed", color = "red"
       ) +
       annotate("text",
-        y = -log10(p_value_threshold) + 0.2,
+        y = minus_log_p_val_thresh + 0.2,
         x = max(df_$index) - length(df_$index) / 2,
-        label = paste("-log10(p-value threshold) :", signif(-log10(p_value_threshold), 4)),
+        label = paste("-log10(p-value threshold) :", signif(minus_log_p_val_thresh, 2)),
         color = "red", size = 4, fontface = "bold"
       ) +
       labs(
@@ -260,11 +290,26 @@ if (kernel_index == 1) {
         )
       ) +
       scale_color_discrete(name = "Chromosome") +
-      coord_cartesian(ylim = c(0, max_y)) +
+      scale_y_continuous(
+        limits = c(0.1, max_y),
+        expand = c(0, 0)
+      ) +
       theme(plot.title = element_text(
         hjust = 0.5,
         size = 20
       ))
+    # save to ggplot format
+    ggsave(
+      filename =
+        paste0(
+          "kernelized_haplotype_based_genome_scan_for_",
+          trait_name, "_manhattan_plot.png"
+        ),
+      width = 20,
+      height = 8,
+      limitsize = F,
+      plot = p
+    )
     # convert ggplot to ggplotly and save plot
     p <- ggplotly(p, tooltip = "text")
     saveWidget(p, file = paste0(

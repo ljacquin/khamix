@@ -29,8 +29,6 @@ box_cox_transform <- function(y, tol_ = 0.05) {
 #-----------------------------------------------------------------------------------#
 apply_box_cox_ <- FALSE
 phenotypes <- as.data.frame(fread("phenotypes.txt", header = TRUE))
-phenotypes <- phenotypes[, -match("GID", colnames(phenotypes))]
-
 trait_name <- as.character(read.table("trait_name.txt"))
 phenotypes_trait_name <- phenotypes[, trait_name]
 

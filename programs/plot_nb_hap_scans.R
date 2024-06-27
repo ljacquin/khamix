@@ -1,3 +1,5 @@
+library(pandoc)
+
 #---------------------------#
 # read files and parameters #
 #---------------------------#

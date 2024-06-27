@@ -1,4 +1,9 @@
 #!/bin/sh
+### Requirements
+#SBATCH --partition=bigmem
+#SBATCH --mem-per-cpu=16
+#SBATCH --cpus-per-task=2
+
 # extract haplotype data for analyzed chromosome
 R -q --vanilla<get_data_chromo_num_k.R
 

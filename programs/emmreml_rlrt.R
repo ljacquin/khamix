@@ -5,6 +5,12 @@ library(data.table)
 
 # script for computing the rlrt value at the center of the analyzed window
 
+# in case of any error
+write.matrix(0,
+  file = "rlrt_value.txt",
+  sep = " "
+)
+
 # get number of observations
 y <- scan("phenotypes_trait_name.txt")
 n <- length(y)
