@@ -39,7 +39,7 @@ where :
   * $\varepsilon$ denotes the vector of residuals.
   <p> </p>
 
-  The distribution of the restricted likelihood ratio test (RLRT) associated to these models is not known, but it can be approximated by $\frac{1}{2}(\chi^2_1 + \chi^2_2)$ according to Self & Liang (1987) and Baey $\textit{et al.}$ (2021).
+  The exact distribution of the restricted likelihood ratio test (RLRT) under $H_0$ for these models is not known. However, it can be approximated by a sum of chi-squared distributions, specifically $\frac{1}{2}(\chi^2_{d_1 = 1} + \chi^2_{d_2 = 2} )$, as indicated by Self & Liang (1987) and Baey $\textit{et al.}$ (2021), provided the model assumptions are met. Significant deviations from these assumptions in practical scenarios, however, can lead to poor approximations. Therefore, ```KHAMIX``` uses maximum likelihood estimation (MLE) to infer $d_1$and $d_2$ based on the computed RLRT values under the null hypothesis $H_0$. Since these computed RLRT values are expected to closely follow the theoretical RLRT distribution under $H_0$, they provide a reliable basis for estimating $d_1$ and $d_2$ through MLE. Indeed, a very high majority of the RLRT values will conform to this distribution, making them effective for maximizing the likelihood function and accurately estimating the distribution parameters. Nevertheless, if the model assumptions are severely violated, the reliability of the MLE might be compromised.
 
 ### 🔍 Remarks 
 
