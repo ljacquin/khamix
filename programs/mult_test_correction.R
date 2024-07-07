@@ -13,10 +13,14 @@ alpha <- as.numeric(scan("signif_level.txt"))
 
 # get genotype data
 genotype_matrix <- as.data.frame(fread("genotypes.txt"))
-genotype_matrix <- genotype_matrix[, -match(
-  "GID",
-  colnames(genotype_matrix)
-)]
+
+# remove GID col if present and scale genotype df
+if ("GID" %in% colnames(genotype_matrix)) {
+  genotype_matrix <- genotype_matrix[, -match(
+    "GID",
+    colnames(genotype_matrix)
+  )]
+}
 
 # get physical map data
 physical_map_matrix <- read.table("physical_map.txt", header = TRUE)

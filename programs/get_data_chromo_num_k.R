@@ -6,11 +6,23 @@ library(data.table)
 phased_genotype_matrix <- as.data.frame(fread("phased_genotypes.txt",
                                               header = TRUE
 ))
-phased_genotype_matrix <- phased_genotype_matrix[, -match(
-  c("I", "ID"),
-  colnames(phased_genotype_matrix)
-)]
-phased_genotype_matrix <- t(phased_genotype_matrix)
+
+# remove GID col if present 
+if ("GID" %in% colnames(phased_genotype_matrix)) {
+  phased_genotype_matrix <- phased_genotype_matrix[, -match(
+    "GID",
+    colnames(phased_genotype_matrix)
+  )]
+}
+# colnames(phased_genotype_matrix) <- phased_genotype_matrix[2,]
+# phased_genotype_matrix <- phased_genotype_matrix[-c(1,2),]
+# rownames(phased_genotype_matrix) <- NULL
+# phased_genotype_matrix <- as.data.frame(phased_genotype_matrix)
+# dim(phased_genotype_matrix)
+# phased_genotype_matrix <- cbind(rep(1:(nrow(phased_genotype_matrix)/2), each = 2), phased_genotype_matrix)
+# colnames(phased_genotype_matrix)[1] <- 'GID'
+# write.table(phased_genotype_matrix, file = '../data_parameters/phased_genotypes.txt',
+#             sep = ' ', row.names = F, col.names = T)
 
 physical_map_matrix <- read.table("physical_map.txt", header = TRUE)
 repeated_chrom_num <- physical_map_matrix[, match(

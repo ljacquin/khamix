@@ -8,7 +8,6 @@ library(htmlwidgets)
 # read files and parameters #
 #---------------------------#
 trait_name <- as.character(readLines("trait_name.txt"))
-trait_name <- 'BLUP_AUDPC_reel_mono_souche'
 
 nb_chromosomes <- scan("nb_chromosomes.txt")
 nb_snp_hap <- scan("nb_snp_hap.txt")

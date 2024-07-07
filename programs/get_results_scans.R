@@ -22,7 +22,6 @@ vect_all_rlrt_val_ <- as.numeric(unlist(do.call(
   )
 )))
 
-
 # define shift quantity
 shift_quantity <- (floor(nb_snp_hap / 2) - 1)
 shift_quantity
@@ -48,11 +47,13 @@ phased_genotype_matrix <- as.data.frame(
     header = TRUE
   )
 )
-phased_genotype_matrix <- phased_genotype_matrix[, -match(
-  c("I", "ID"),
-  colnames(phased_genotype_matrix)
-)]
-phased_genotype_matrix <- t(phased_genotype_matrix)
+# remove GID col if present 
+if ("GID" %in% colnames(phased_genotype_matrix)) {
+  phased_genotype_matrix <- phased_genotype_matrix[, -match(
+    "GID",
+    colnames(phased_genotype_matrix)
+  )]
+}
 
 # likelihood function for sum of chisq distribution
 log_likelihood <- function(params, data) {
