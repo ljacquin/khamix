@@ -1,4 +1,4 @@
-[<img src="img/khamix.png"/>]()
+[<img src="img/khamix_.png"/>]()
 
 # Kernelized HAplotype-based MIXed model association mapping (KHAMIX) 
 
