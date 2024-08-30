@@ -27,9 +27,13 @@
 * The ```KHAMIX``` software is designed to conduct a genome-wide scan for detecting quantitative trait loci (QTLs) and mapping them, utilizing a sliding window approach with $L > 1$ SNP markers along phased chromosomes. Consequently, each window encompasses $n_h$ haplotypes where $n_h \leq 2^L$. The central position of the sliding window is considered as the potential location harboring the putative QTL during the genome scan. As demonstrated in Jacquin $\textit{et al.}$ (2014), haplotypes harboring a QTL better capture the linkage disequilibrium (LD) with the latter than a neighbouring SNP, regardless of the degree of allelism at the QTL. This enhanced LD capture results in better detection, higher mapping accuracy, and possibly less spurious associations (i.e. false positives) over chromosomes due to local LD being captured by haplotypes.
 
 * At the central position of the sliding window, ```KHAMIX``` evaluates and tests various mixed models and hypotheses, inspired by the works of Jacquin $\textit{et al.}$ (2014) and Lafarge $\textit{et al.}$ (2017). Particularly, the former study advocates the utilization of identity-by-state (IBS) of haplotypes for such analyses.  The software evaluates the following models and hypotheses for each window :
+  
 $$Y = X\beta + Z_hh+ Z_uu + \varepsilon \ (H_1)$$ 
+
 $$versus$$
+
 $$Y = X\beta + Z_uu + \varepsilon \ (H_0)$$
+
 where :
   * $Y$ represents the vector of $n$ measured phenotypes for the analyzed trait.
   * $\beta$ denotes the vector of fixed effects.
